@@ -1,6 +1,6 @@
 
 // ours
-import johnq/[johnq, stage, player, qtile]
+import johnq/[johnq, stage, player, qtile, shot]
 
 // third party
 import dye/[core, sprite, input, math]
@@ -10,8 +10,9 @@ GameStage: class extends Stage {
 
     player: Player
     map := QMap new()
+    shots := GlGroup new()
 
-    yDelta := -3
+    yDelta := -2
 
     init: super func
 
@@ -19,6 +20,7 @@ GameStage: class extends Stage {
         player = Player new(this)
         add(map)
         add(player)
+        add(shots)
 
         initEvents()
 
@@ -32,6 +34,7 @@ GameStage: class extends Stage {
     reset!: func {
         player pos set!(john dye width * 0.5, john dye height * 0.2)
         map load("assets/maps/SmithThompson.tmx")
+        shots clear()
     }
 
     initEvents: func {
@@ -51,6 +54,12 @@ GameStage: class extends Stage {
         player update()
 
         map pos y += yDelta
+
+        for (s in shots children) {
+            match s {
+                case (shot: Shot) => shot update()
+            }
+        }
     }
 
     handleInput: func {

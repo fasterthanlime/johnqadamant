@@ -1,26 +1,34 @@
 
 // ours
-import johnq/[johnq, stage]
+import johnq/[johnq, stage, shot]
 import johnq/stages/[game]
 
 // third party
-import dye/[core, sprite, math]
+import dye/[core, sprite, math, primitives]
 
 Player: class extends GlGroup {
 
     stage: GameStage
+
+    hitbox: GlRectangle
     body: GlSprite
 
     vel := vec2(0.0, 0.0)
     maxVel := 8.0
 
     init: func (=stage) {
-        body = GlSprite new("assets/png/ship.png")
+        hitbox = GlRectangle new(vec2(67, 42))
+        hitbox color set!(255, 0, 0)
+        hitbox opacity = 0.3
+        hitbox pos y = -10
+        add(hitbox)
+
+        body = GlSprite new("assets/png/ship-small.png")
         add(body)
     }
 
     shoot: func {
-        // not yet
+        stage shots add(Shot new(0, pos add(0, 25)))
     }
 
     move: func (deltaX, deltaY: Float) {
@@ -49,6 +57,25 @@ Player: class extends GlGroup {
         }
     }
 
+    constrainPos: func {
+        if (pos x < 0) {
+            pos x = 0
+        }
+
+        if (pos x > stage size x) {
+            pos x = stage size x
+        }
+
+        if (pos y < 0) {
+            pos y = 0
+        }
+
+        maxY := stage size y - 200
+        if (pos y > maxY) {
+            pos y = maxY
+        }
+    }
+
     dampVel: func {
         factor := 0.85
         vel set!(vel x * factor, vel y * factor)
@@ -57,6 +84,7 @@ Player: class extends GlGroup {
     update: func {
         pos add!(vel)
         dampVel()
+        constrainPos()
     }
 
 }

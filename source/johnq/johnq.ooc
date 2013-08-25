@@ -23,7 +23,7 @@ JohnQ: class extends App {
     hose := FireHose new()
 
     init: func {
-        super("John Q", 800, 600)
+        super("John Quincy Adamant", 800, 600)
         escQuits? = false
     }
 
