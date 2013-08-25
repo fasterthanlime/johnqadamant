@@ -46,6 +46,15 @@ GameStage: class extends Stage {
             match (kr scancode) {
                 case KeyCode ESC =>
                     john hose publish(ZBag make("return to menu"))
+                
+                case KeyCode F1 =>
+                    player shotType = 0
+                case KeyCode F2 =>
+                    player shotType = 1
+                case KeyCode F3 =>
+                    player shotType = 2
+                case KeyCode F4 =>
+                    player shotType = 3
             }
         )
     }

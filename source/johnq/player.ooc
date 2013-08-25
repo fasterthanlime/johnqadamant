@@ -16,6 +16,8 @@ Player: class extends GlGroup {
     vel := vec2(0.0, 0.0)
     maxVel := 8.0
 
+    shotType := 0
+
     init: func (=stage) {
         hitbox = GlRectangle new(vec2(67, 42))
         hitbox color set!(255, 0, 0)
@@ -30,8 +32,8 @@ Player: class extends GlGroup {
     shoot: func {
         yDelta := 25
         xDelta := 8
-        stage shots add(Shot new(stage, 0, pos add(-xDelta, yDelta)))
-        stage shots add(Shot new(stage, 0, pos add( xDelta, yDelta)))
+        stage shots add(Shot new(stage, shotType, pos add(-xDelta, yDelta)))
+        stage shots add(Shot new(stage, shotType, pos add( xDelta, yDelta)))
     }
 
     move: func (deltaX, deltaY: Float) {
