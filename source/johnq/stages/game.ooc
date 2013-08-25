@@ -16,6 +16,10 @@ GameStage: class extends Stage {
 
     init: super func
 
+    // shoot stuff
+    shootCounter := 0
+    shootThreshold := 4
+
     setup: func {
         player = Player new(this)
         add(map)
@@ -40,9 +44,6 @@ GameStage: class extends Stage {
     initEvents: func {
         input onKeyRelease(|kr|
             match (kr scancode) {
-                case KeyCode SPACE =>
-                    player shoot()
-
                 case KeyCode ESC =>
                     john hose publish(ZBag make("return to menu"))
             }
@@ -55,9 +56,16 @@ GameStage: class extends Stage {
 
         map pos y += yDelta
 
-        for (s in shots children) {
+        updateShots()
+    }
+
+    updateShots: func {
+        iter := shots children iterator()
+        while (iter hasNext?()) {
+            s := iter next()
             match s {
-                case (shot: Shot) => shot update()
+                case (shot: Shot) =>
+                    if (!shot update()) iter remove()
             }
         }
     }
@@ -78,6 +86,15 @@ GameStage: class extends Stage {
         if (input isPressed(KeyCode DOWN)) {
             player move(0, -1)
         }
+
+        if (input isPressed(KeyCode SPACE)) {
+            shootCounter += 1
+            if (shootCounter > shootThreshold) {
+                shootCounter = 0
+                player shoot()
+            }
+        }
+
     }
 
 }

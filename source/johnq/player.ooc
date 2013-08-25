@@ -28,7 +28,10 @@ Player: class extends GlGroup {
     }
 
     shoot: func {
-        stage shots add(Shot new(0, pos add(0, 25)))
+        yDelta := 25
+        xDelta := 8
+        stage shots add(Shot new(stage, 0, pos add(-xDelta, yDelta)))
+        stage shots add(Shot new(stage, 0, pos add( xDelta, yDelta)))
     }
 
     move: func (deltaX, deltaY: Float) {
