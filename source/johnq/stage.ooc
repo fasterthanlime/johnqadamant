@@ -22,12 +22,18 @@ Stage: class extends Scene {
         setup()
     }
 
+    /* Called when created */
     setup: func {
         // override
     }
 
+    /* Called every 1/60th of a second */
     update: func {
         // override
+    }
+
+    /* Called when just switched to. */
+    prepare: func {
     }
 
 }

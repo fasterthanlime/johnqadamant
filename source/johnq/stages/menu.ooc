@@ -19,8 +19,13 @@ MenuStage: class extends Stage {
     }
 
     initEvents: func {
-        input onKeyRelease(KeyCode SPACE, |kr|
-            john hose publish(ZBag make("new game"))
+        input onKeyRelease(|kr|
+            match (kr scancode) {
+                case KeyCode SPACE =>
+                    john hose publish(ZBag make("new game"))
+                case KeyCode ESC =>
+                    john hose publish(ZBag make("exit"))
+            }
         )
     }
 

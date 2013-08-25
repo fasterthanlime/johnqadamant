@@ -48,6 +48,8 @@ JohnQ: class extends App {
         match message {
             case "new game" =>
                 switchTo("game")
+            case "return to menu" =>
+                switchTo("menu")
             case "exit" =>
                 quit()
         }
@@ -58,6 +60,8 @@ JohnQ: class extends App {
         if (!stage) {
             raise("Unknown stage: %s" format(stageName))
         }
+
+        stage prepare()
         currentStage = stage
         dye setScene(stage)
 
