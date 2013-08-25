@@ -6,9 +6,16 @@ import johnq/[johnq, stage, player]
 import dye/[core, sprite, input]
 import gnaar/[zbag]
 
+use tiled
+import tiled/[Map, Tile, helpers]
+
+// sdk
+import io/File
+
 GameStage: class extends Stage {
 
     player: Player
+    map: Map
 
     init: super func
 
@@ -27,6 +34,18 @@ GameStage: class extends Stage {
 
     reset!: func {
         player pos set!(john dye width * 0.5, john dye height * 0.2)
+
+        file := File new("assets/maps/SmithThompson.tmx")
+        map = Map new(file)
+        "Loaded map, width / height = %d, %d" printfln(map width, map height)
+        "tile width / height = %d, %d" printfln(map tileWidth, map tileHeight)
+        "layer count = %d" printfln(map layers size)
+
+        layer := map layers get(0)
+        layer each(|x, y, tile|
+            pos := tile getPosition()
+            "Tile at %d, %d. Position = %d, %d" printfln(x, y, pos x, pos y)
+        )
     }
 
     initEvents: func {
