@@ -3,13 +3,15 @@
 import johnq/[johnq, stage, player, qtile]
 
 // third party
-import dye/[core, sprite, input]
+import dye/[core, sprite, input, math]
 import gnaar/[zbag]
 
 GameStage: class extends Stage {
 
     player: Player
     map := QMap new()
+
+    yDelta := -4
 
     init: super func
 
@@ -47,6 +49,8 @@ GameStage: class extends Stage {
     update: func {
         handleInput()
         player update()
+
+        map pos y += yDelta
     }
 
     handleInput: func {
