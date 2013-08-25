@@ -18,7 +18,14 @@ GameStage: class extends Stage {
 
     // shoot stuff
     shootCounter := 0
-    shootThreshold := 4
+    shootThreshold : Int { get {
+        match (player shotType) {
+            case 0 => 2
+            case 1 => 4
+            case 2 => 5
+            case 3 => 10
+        }
+    } }
 
     setup: func {
         player = Player new(this)

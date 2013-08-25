@@ -6,6 +6,9 @@ import johnq/stages/[game]
 // third party
 import dye/[core, sprite, math, primitives]
 
+// sdk
+import math
+
 Player: class extends GlGroup {
 
     stage: GameStage
@@ -17,6 +20,9 @@ Player: class extends GlGroup {
     maxVel := 8.0
 
     shotType := 0
+
+    /** missiles are shot in X from sin(missileAngle) */
+    missileAngle := 0.0
 
     init: func (=stage) {
         hitbox = GlRectangle new(vec2(67, 42))
@@ -30,10 +36,60 @@ Player: class extends GlGroup {
     }
 
     shoot: func {
-        yDelta := 25
-        xDelta := 8
-        stage shots add(Shot new(stage, shotType, pos add(-xDelta, yDelta)))
-        stage shots add(Shot new(stage, shotType, pos add( xDelta, yDelta)))
+        match shotType {
+            // Rat pellets
+            case 0 =>
+                yDelta := 25
+                xDelta := 8
+                vel := vec2(0, 25)
+
+                f := func (xd: Float) {
+                    propel(pos add(xd, yDelta), vel)
+                }
+                f(-xDelta); f(xDelta)
+
+            // Fire balls of the dragon
+            case 1 =>
+                yDelta := 25
+                xDelta := 12
+                vxDelta := 4
+
+                f := func (xd, xd2, y: Float) {
+                    propel(pos add(xd, y), vec2(xd2, 15))
+                }
+                f(-xDelta, -vxDelta, yDelta - 18)
+                f(0, 0, yDelta)
+                f(xDelta, vxDelta, yDelta - 18)
+
+            // Missiles
+            case 2 =>
+                missileAngle += 0.2
+                if (missileAngle > 2 * PI) {
+                    missileAngle -= 2 * PI
+                }
+
+                factor := 45.0
+                x1 := sin(missileAngle)
+                yDelta := 12
+
+                propel(vec2(pos x + x1 * factor, pos y + yDelta), vec2( x1 * 2.0, 15))
+                propel(vec2(pos x - x1 * factor, pos y + yDelta), vec2(-x1 * 2.0, 15))
+
+            // Ninja stars 
+            case 3 =>
+                yDelta := 8
+                xDelta := 30
+                vel := vec2(0, 10)
+
+                f := func (xd: Float) {
+                    propel(pos add(xd, yDelta), vel)
+                }
+                f(-xDelta); f(xDelta)
+        }
+    }
+
+    propel: func (pos, vel: Vec2) {
+        stage shots add(Shot new(stage, shotType, pos, vel))
     }
 
     move: func (deltaX, deltaY: Float) {

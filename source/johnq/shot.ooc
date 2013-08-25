@@ -16,7 +16,9 @@ Shot: class extends GlGroup {
     sprite: GlGridSprite
     type: Int
 
-    init: func (=stage, =type, initialPos: Vec2) {
+    vel := vec2(0, 0)
+
+    init: func (=stage, =type, initialPos, initialVel: Vec2) {
         super()
 
         if (!stageSize) {
@@ -40,17 +42,26 @@ Shot: class extends GlGroup {
         }
         add(sprite)
         pos set!(initialPos)
+        vel set!(initialVel)
     }
 
     update: func -> Bool {
-        pos add!(0, 12)
+        pos add!(vel)
 
         // later: shot-specific behaviour
         match type {
+            // Rat pellet
             case 0 =>
+
+            // Fire balls of the dragon
             case 1 =>
+
+            // Missiles
             case 2 =>
+
+            // Ninja stars
             case 3 =>
+                angle += 3.0
         }
 
         if (!pos inside?(origin, stageSize)) {
