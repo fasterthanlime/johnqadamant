@@ -61,7 +61,7 @@ Shot: class extends GlGroup {
 
             // Ninja stars
             case 3 =>
-                angle += 3.0
+                angle += 5.0
         }
 
         if (!pos inside?(origin, stageSize)) {
