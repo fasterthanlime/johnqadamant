@@ -11,7 +11,7 @@ GameStage: class extends Stage {
     player: Player
     map := QMap new()
 
-    yDelta := -4
+    yDelta := -3
 
     init: super func
 

@@ -1,7 +1,7 @@
 
 // third-party
 use dye
-import dye/[core, app]
+import dye/[core, app, input]
 
 use gnaar
 import gnaar/[zbag, hose]
@@ -36,6 +36,10 @@ JohnQ: class extends App {
 
         // events
         hose subscribe(|bag| onEvent(bag))
+
+        dye input onKeyPress(KeyCode F11, |kp|
+            dye setFullscreen(!dye fullscreen)
+        )
 
         // initial state
         switchTo("menu")

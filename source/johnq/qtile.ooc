@@ -50,6 +50,20 @@ QMap: class extends GlGroup {
         add(tile) // gfx
     }
 
+    drawChildren: func (dye: DyeContext, modelView: Matrix4) {
+        for (c in children) {
+            actualPos := c pos add(pos)
+            if (actualPos x < -map tileWidth ||
+                actualPos x > dye width + map tileWidth ||
+                actualPos y < -map tileHeight ||
+                actualPos y > dye height + map tileHeight) {
+                continue // skip that one.
+            }
+
+            c render(dye, modelView)
+        }
+    }
+
 }
 
 QTile: class extends GlGridSprite {
