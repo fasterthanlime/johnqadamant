@@ -12,7 +12,7 @@ GameStage: class extends Stage {
     map := QMap new()
     shots := GlGroup new()
 
-    yDelta := -2
+    yDelta := -1
 
     init: super func
 
@@ -33,7 +33,7 @@ GameStage: class extends Stage {
 
     reset!: func {
         player pos set!(john dye width * 0.5, john dye height * 0.2)
-        map load("assets/maps/SmithThompson.tmx")
+        map load("assets/maps/SmithThompson2.tmx")
         shots clear()
     }
 

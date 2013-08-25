@@ -69,7 +69,7 @@ QMap: class extends GlGroup {
 QTile: class extends GlGridSprite {
 
     init: func (=x, =y) {
-        super("assets/png/tiles1.png", 2, 2)
+        super("assets/png/tiles2.png", 16, 16)
     }
 
 }
