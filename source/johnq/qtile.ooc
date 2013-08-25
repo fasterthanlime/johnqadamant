@@ -33,7 +33,7 @@ QMap: class extends GlGroup {
             //"Tile at %d, %d. Position = %d, %d" printfln(x, y, pos x, pos y)
 
             qtile := QTile new(pos x / map tileWidth, pos y / map tileHeight)
-            qtile pos set!(x * map tileWidth, y * map tileHeight)
+            qtile pos set!(x * map tileWidth, (map height - y) * map tileHeight)
             addTile(qtile)
         )
     }
