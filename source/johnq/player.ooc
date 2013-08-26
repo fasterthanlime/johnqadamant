@@ -21,6 +21,8 @@ Player: class extends GlGroup {
 
     shotType := ShotType PELLET
 
+    life := 100
+
     /** missiles are shot in X from sin(missileAngle) */
     missileAngle := 0.0
 
@@ -81,6 +83,14 @@ Player: class extends GlGroup {
                     propel(pos add(xd, yDelta), vel)
                 }
                 f(-xDelta); f(xDelta)
+        }
+    }
+
+    takeShotDamage: func (shot: Shot) {
+        match (shot type) {
+            case ShotType MIL_MISSILE =>
+                life -= 10
+            // TODO: other cases
         }
     }
 

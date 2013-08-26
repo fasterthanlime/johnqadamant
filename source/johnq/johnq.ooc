@@ -23,7 +23,8 @@ JohnQ: class extends App {
     hose := FireHose new()
 
     init: func {
-        super("John Quincy Adamant", 800, 600)
+        // Yeaaaah, 720p baby.
+        super("John Quincy Adamant", 1280, 720)
         escQuits? = false
     }
 

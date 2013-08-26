@@ -87,8 +87,9 @@ GameStage: class extends Stage {
                         iter remove()
                     }
                     if (!shot friendly) {
-                        if (pos inside?(bl, tr)) {
-                            logger info("Player damage!")
+                        if (shot pos inside?(bl, tr)) {
+                            player takeShotDamage(shot)
+                            iter remove()
                         }
                     }
             }
