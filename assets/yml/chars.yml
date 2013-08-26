@@ -70,3 +70,21 @@ characters:
           all, in fostering the American industry. Progress!
       challenge: dunno
 
+    - name: William H. Crawford
+      ship: [0, 2]
+      description: >
+          Crawford is the perfect pacifist - when he wussed out of the Secretary of War
+          position, he was naturally assigned to the U.S. minister to France post.
+          There, he learned about French cheese, and eventually, he fell so in love with
+          them that he made a battleship made entirely of cheese.
+      challenge: nonviolent
+
+    - name: Andrew Jackson
+      ship: [1, 2]
+      description: >
+          On paper, Andrew Jackson seems like the best dude ever - heck, he was even
+          elected president in 1827. So, it seems he has nothing to complain about,
+          right? Right? Wrong. He is a little entitled piece of shit wealthy
+          slaveholder.
+      challenge: dunno
+
