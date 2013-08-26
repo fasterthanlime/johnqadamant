@@ -51,6 +51,7 @@ characters:
           Supreme Court. But his true passion was revealed to him when he was
           Secretary of the Navy: boats! In 2013, he has perfected the airboat, and
           it's his weapon of choice to attack The Adamant.
+      challenge: dunno
 
     - name: John C. Calhoun
       ship: [2, 1]
@@ -58,5 +59,14 @@ characters:
           Calhoun is a though sunnofabitch. During his career as a politician, he
           was distrustful of democracy, and he redefined republicanism to include...
           a justification for slavery! Hence, his ship is a shackled, black foot.
+      challenge: leave_doves
+
+    - name: Henry Clay
+      ship: [3, 1]
+      description: >
+          Clay is a terrible person for two reasons: he was a lawyer AND a politician.
+          In 1812, he almost single-handedly led the nation to war. Lincoln held Clay
+          in high esteem. He was a man who believed in a strong economy, and most of
+          all, in fostering the American industry. Progress!
       challenge: dunno
 
