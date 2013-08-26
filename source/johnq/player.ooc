@@ -60,7 +60,7 @@ Player: class extends GlGroup {
             case ShotType FIREBALL =>
                 speed := 25.0
 
-                delta := 8
+                delta := 32
                 incr := 360.0 / delta as Float
                 a := 0.0
                 delta times(||

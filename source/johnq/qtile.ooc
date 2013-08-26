@@ -153,8 +153,13 @@ QMap: class extends GlGroup {
         }
     }
 
-    explode: func (epos: Vec2) {
-        exp := Explosion new(epos sub(pos))
+    explode: func (epos: Vec2, translate := true) {
+        xpos := epos
+        if (translate) {
+            xpos = epos sub(pos)
+        }
+
+        exp := Explosion new(xpos)
         addExplosion(exp)
     }
 
@@ -246,9 +251,9 @@ Mob: class extends GlGroup {
 
     initCollision: func {
         radius = match type {
-            case MobType MOLAR  => 70.0
-            case MobType DOVE   => 30.0
-            case MobType TURRET => 90.0
+            case MobType MOLAR  => 50.0
+            case MobType DOVE   => 20.0
+            case MobType TURRET => 60.0
             case => 128.0
         }
 
@@ -283,9 +288,10 @@ Mob: class extends GlGroup {
         visible = true
 
         if (health < 0) {
-            // TODO: explosion?
             alive = false
             active = false
+
+            map explode(pos, false)
         }
 
         match type {
@@ -375,6 +381,7 @@ Explosion: class extends GlGridSprite {
 
         pos set!(initialPos)
         updateScale()
+        opacity := 0.6
 
         angle = Random randInt(0, 359) as Float
     }
@@ -384,6 +391,8 @@ Explosion: class extends GlGridSprite {
     }
 
     update: func -> Bool {
+        angle += 0.3
+
         opacity -= 0.03
         radius += 0.05
         countdown -= 1

@@ -21,7 +21,7 @@ GameStage: class extends Stage {
     shootThreshold : Int { get {
         match (player shotType) {
             case ShotType PELLET => 2
-            case ShotType FIREBALL => 2
+            case ShotType FIREBALL => 20
             case ShotType MISSILE => 5
             case ShotType STARS => 10
         }
@@ -91,7 +91,6 @@ GameStage: class extends Stage {
                             for (mob in map mobs) {
                                 mobPos := mob pos add(map pos)
                                 if (mobPos dist(shot pos) < mob radius) {
-                                    map explode(shot pos)
                                     mob takeDamage(shot)
                                     if (shot oneShot?) {
                                         iter remove()
