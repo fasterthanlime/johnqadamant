@@ -35,7 +35,8 @@ SelectorStage: class extends Stage {
         input onKeyRelease(|kr|
             match (kr scancode) {
                 case KeyCode ENTER =>
-                    john hose publish(ZBag make("new game"))
+                    bag := ZBag make("new game", currentChar x, currentChar y, currentChar challenge)
+                    john hose publish(bag)
                 case KeyCode LEFT =>
                     cycle(-1)
                 case KeyCode RIGHT =>

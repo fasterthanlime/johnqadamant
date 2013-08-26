@@ -22,6 +22,10 @@ JohnQ: class extends App {
     // events
     hose := FireHose new()
 
+    // MWAHAHAHAHA GLOBALS
+    x, y: Int
+    challenge: String
+
     init: func {
         // Yeaaaah, 720p baby.
         super("John Quincy Adamant", 1280, 720)
@@ -60,6 +64,8 @@ JohnQ: class extends App {
             case "select character" =>
                 switchTo("selector")
             case "new game" =>
+                (x, y) = (bag pullInt(), bag pullInt())
+                challenge = bag pull()
                 switchTo("game")
             case "return to menu" =>
                 switchTo("menu")

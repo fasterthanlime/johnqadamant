@@ -33,8 +33,6 @@ Player: class extends GlGroup {
     init: func (=stage) {
         body = GlGridSprite new("assets/png/ship.png", 4, 4)
 
-        // TODO: actual character selector
-        (body x, body y) = (1, 2)
         factor := 0.6
         body scale set!(factor, factor)
 
@@ -49,6 +47,10 @@ Player: class extends GlGroup {
         halfSize = collisionRect size mul(0.5)
 
         hitbox = Hitbox new()
+    }
+
+    prepare: func {
+        (body x, body y) = (stage john x, stage john y)
     }
 
     shoot: func {

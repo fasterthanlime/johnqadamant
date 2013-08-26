@@ -43,6 +43,7 @@ GameStage: class extends Stage {
 
     prepare: func {
         reset!()
+        player prepare()
     }
 
     reset!: func {
