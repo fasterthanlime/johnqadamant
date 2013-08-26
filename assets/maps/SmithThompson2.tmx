@@ -65,7 +65,7 @@
  <tileset firstgid="257" name="mobs" tilewidth="128" tileheight="128">
   <image source="../png/mobs.png" width="256" height="256"/>
  </tileset>
- <layer name="tiles" width="14" height="150">
+ <layer name="decor" width="14" height="150">
   <data encoding="csv">
 18,18,18,18,18,18,18,18,18,18,18,18,18,18,
 18,18,18,18,18,18,18,18,18,18,18,18,18,18,

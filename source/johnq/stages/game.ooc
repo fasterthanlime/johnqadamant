@@ -9,10 +9,8 @@ import gnaar/[zbag]
 GameStage: class extends Stage {
 
     player: Player
-    map := QMap new()
+    map := QMap new(this)
     shots := GlGroup new()
-
-    yDelta := -1
 
     init: super func
 
@@ -69,9 +67,7 @@ GameStage: class extends Stage {
     update: func {
         handleInput()
         player update()
-
-        map pos y += yDelta
-
+        map update()
         updateShots()
     }
 
