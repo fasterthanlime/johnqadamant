@@ -13,8 +13,10 @@ Player: class extends GlGroup {
 
     stage: GameStage
 
-    hitbox: GlRectangle
+    collisionRect: GlRectangle
+    halfSize: Vec2
     body: GlSprite
+    hitbox: Hitbox
 
     vel := vec2(0.0, 0.0)
 
@@ -32,11 +34,15 @@ Player: class extends GlGroup {
         body = GlSprite new("assets/png/ship-small.png")
         add(body)
 
-        hitbox = GlRectangle new(vec2(45, 25))
-        hitbox color set!(255, 0, 0)
-        hitbox opacity = 0.3
-        hitbox pos y = -15
-        add(hitbox)
+        collisionRect = GlRectangle new(vec2(45, 25))
+        collisionRect color set!(255, 0, 0)
+        collisionRect opacity = 0.3
+        collisionRect pos y = -15
+        add(collisionRect)
+
+        halfSize = collisionRect size mul(0.5)
+
+        hitbox = Hitbox new()
     }
 
     shoot: func {
@@ -164,6 +170,11 @@ Player: class extends GlGroup {
         pos add!(vel)
         dampVel()
         constrainPos()
+
+        hitbox bl set!(pos x + collisionRect pos x - halfSize x,
+                       pos y + collisionRect pos y - halfSize y)
+        hitbox tr set!(pos x + collisionRect pos x + halfSize x,
+                       pos y + collisionRect pos y + halfSize y)
     }
 
 }

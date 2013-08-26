@@ -78,12 +78,6 @@ GameStage: class extends Stage {
     }
 
     updateShots: func {
-        // can we hurt the player?
-        hitPos := player pos add(player hitbox pos)
-        halfSize := player hitbox size
-        bl := hitPos sub(halfSize)
-        tr := hitPos add(halfSize)
-
         iter := shots children iterator()
         while (iter hasNext?()) {
             s := iter next()
@@ -98,7 +92,7 @@ GameStage: class extends Stage {
                         // can we hurt enemies?
                     } else {
                         // can we hurt the player?
-                        if (shot pos inside?(bl, tr)) {
+                        if (player hitbox contains?(shot pos)) {
                             player takeShotDamage(shot)
                             shot alive = false
                             iter remove()
@@ -139,5 +133,16 @@ GameStage: class extends Stage {
         john hose publish(ZBag make("lost"))
     }
 
+}
+
+Hitbox: class {
+    bl := vec2(0, 0)
+    tr := vec2(0, 0)
+
+    init: func
+
+    contains?: func (v: Vec2) -> Bool {
+        v inside?(bl, tr)
+    }
 }
 
