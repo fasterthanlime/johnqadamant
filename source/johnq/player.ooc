@@ -19,7 +19,7 @@ Player: class extends GlGroup {
     vel := vec2(0.0, 0.0)
     maxVel := 8.0
 
-    shotType := 0
+    shotType := ShotType PELLET
 
     /** missiles are shot in X from sin(missileAngle) */
     missileAngle := 0.0
@@ -37,8 +37,7 @@ Player: class extends GlGroup {
 
     shoot: func {
         match shotType {
-            // Rat pellets
-            case 0 =>
+            case ShotType PELLET =>
                 yDelta := 25
                 xDelta := 8
                 vel := vec2(0, 25)
@@ -48,8 +47,7 @@ Player: class extends GlGroup {
                 }
                 f(-xDelta); f(xDelta)
 
-            // Fire balls of the dragon
-            case 1 =>
+            case ShotType FIREBALL =>
                 yDelta := 25
                 xDelta := 12
                 vxDelta := 4
@@ -61,8 +59,7 @@ Player: class extends GlGroup {
                 f(0, 0, yDelta)
                 f(xDelta, vxDelta, yDelta - 18)
 
-            // Missiles
-            case 2 =>
+            case ShotType MISSILE =>
                 missileAngle += 0.2
                 if (missileAngle > 2 * PI) {
                     missileAngle -= 2 * PI
@@ -75,8 +72,7 @@ Player: class extends GlGroup {
                 propel(vec2(pos x + x1 * factor, pos y + yDelta), vec2( x1 * 2.0, 15))
                 propel(vec2(pos x - x1 * factor, pos y + yDelta), vec2(-x1 * 2.0, 15))
 
-            // Ninja stars 
-            case 3 =>
+            case ShotType STARS =>
                 yDelta := 8
                 xDelta := 30
                 vel := vec2(0, 10)

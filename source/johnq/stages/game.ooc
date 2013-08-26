@@ -3,7 +3,7 @@
 import johnq/[johnq, stage, player, qtile, shot]
 
 // third party
-import dye/[core, sprite, input, math]
+import dye/[core, sprite, input, math, primitives]
 import gnaar/[zbag]
 
 GameStage: class extends Stage {
@@ -18,10 +18,10 @@ GameStage: class extends Stage {
     shootCounter := 0
     shootThreshold : Int { get {
         match (player shotType) {
-            case 0 => 2
-            case 1 => 4
-            case 2 => 5
-            case 3 => 10
+            case ShotType PELLET => 2
+            case ShotType FIREBALL => 4
+            case ShotType MISSILE => 5
+            case ShotType STARS => 10
         }
     } }
 
@@ -53,13 +53,13 @@ GameStage: class extends Stage {
                     john hose publish(ZBag make("return to menu"))
                 
                 case KeyCode F1 =>
-                    player shotType = 0
+                    player shotType = ShotType PELLET
                 case KeyCode F2 =>
-                    player shotType = 1
+                    player shotType = ShotType FIREBALL
                 case KeyCode F3 =>
-                    player shotType = 2
+                    player shotType = ShotType MISSILE
                 case KeyCode F4 =>
-                    player shotType = 3
+                    player shotType = ShotType STARS
             }
         )
     }
@@ -72,12 +72,25 @@ GameStage: class extends Stage {
     }
 
     updateShots: func {
+        // can we hurt the player?
+        playerPos := player pos
+        halfSize := player hitbox size
+        bl := playerPos sub(halfSize)
+        tr := playerPos add(halfSize)
+
         iter := shots children iterator()
         while (iter hasNext?()) {
             s := iter next()
             match s {
                 case (shot: Shot) =>
-                    if (!shot update()) iter remove()
+                    if (!shot update()) {
+                        iter remove()
+                    }
+                    if (!shot friendly) {
+                        if (pos inside?(bl, tr)) {
+                            logger info("Player damage!")
+                        }
+                    }
             }
         }
     }

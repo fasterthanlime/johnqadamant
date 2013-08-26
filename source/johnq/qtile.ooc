@@ -1,6 +1,6 @@
 
 // third party
-import dye/[core, math, sprite]
+import dye/[core, math, sprite, primitives]
 
 use tiled
 import tiled/[Map, Tile, Tileset, helpers]
@@ -53,7 +53,7 @@ QMap: class extends GlGroup {
                 tileset := tile tileset
                 (tileX, tileY) := (pos x / tileset tileWidth, pos y / tileset tileHeight)
 
-                mob := Mob new(tileX, tileY)
+                mob := Mob new(this, tileX, tileY)
                 mob pos set!(convertMapPos(x, y))
                 addMob(mob)
             )
@@ -129,30 +129,41 @@ QTile: class extends GlGridSprite {
 MobType: enum {
     MOLAR
     DOVE
-    UNK1
+    TURRET
     UNK2
 
     toString: func -> String {
         match this {
             case MobType MOLAR => "molar"
             case MobType DOVE => "dove"
+            case MobType TURRET => "turret"
             case => "unk"
         }
     }
 }
 
-Mob: class extends GlGridSprite {
+Mob: class extends GlGroup {
 
     type: MobType
+    map: QMap
+
     active := false
 
+    // state thingy
     xDelta := 3.0
     counter := 0
 
     yDelta := 1.0
 
-    init: func (=x, =y) {
-        super("assets/png/mobs.png", 2, 2)
+    idealAngle := 0.0
+
+    // gfx
+    collision: GlRectangle
+    sprite: GlGridSprite
+
+    init: func (=map, x, y: Int) {
+        sprite = GlGridSprite new("assets/png/mobs.png", 2, 2)
+        (sprite x, sprite y) = (x, y)
 
         type = match y {
             case 0 => match x {
@@ -160,18 +171,35 @@ Mob: class extends GlGridSprite {
                 case 1 => MobType DOVE
             }
             case 1 => match x {
-                case 0 => MobType UNK1
+                case 0 => MobType TURRET
                 case 1 => MobType UNK2
             }
         }
+
+        add(sprite)
+        initCollisionBox()
+    }
+
+    initCollisionBox: func {
+        size := match type {
+            case MobType MOLAR => vec2(90, 80)
+            case MobType DOVE => vec2(57, 53)
+            case MobType DOVE => vec2(78, 78)
+            case => vec2(128, 128)
+        }
+        collision = GlRectangle new(size)
+        collision color set!(255, 0, 0)
+        collision opacity = 0.5
+        add(collision)
     }
 
     update: func {
         if (!active) return
 
         match type {
-            case MobType MOLAR => updateMolar()
-            case MobType DOVE  => updateDove()
+            case MobType MOLAR  => updateMolar()
+            case MobType DOVE   => updateDove()
+            case MobType TURRET => updateTurret()
         }
     }
 
@@ -187,6 +215,11 @@ Mob: class extends GlGridSprite {
 
         pos x += xDelta
         pos y -= yDelta
+    }
+
+    updateTurret: func {
+        idealAngle = pos add(map pos) sub(map stage player pos) angle()
+        angle = angle * 0.7 + idealAngle * 0.3
     }
 
     resetCounter: func {

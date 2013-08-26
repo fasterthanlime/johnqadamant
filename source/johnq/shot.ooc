@@ -7,6 +7,17 @@ import dye/[core, math, sprite]
 // ours
 import johnq/stages/[game]
 
+ShotType: enum {
+    // friendly
+    PELLET
+    FIREBALL
+    MISSILE
+    STARS
+
+    // unfriendly
+    MIL_MISSILE
+}
+
 Shot: class extends GlGroup {
 
     origin := static vec2(0, 0)
@@ -14,7 +25,9 @@ Shot: class extends GlGroup {
 
     stage: GameStage
     sprite: GlGridSprite
-    type: Int
+    type: ShotType
+
+    friendly := true
 
     vel := vec2(0, 0)
 
@@ -25,21 +38,28 @@ Shot: class extends GlGroup {
             stageSize = vec2(stage size x, stage size y)
         }
 
-        sprite = GlGridSprite new("assets/png/shots.png", 2, 2)
+        x, y: Int
         match type {
-            case 0 =>
-                sprite x = 0
-                sprite y = 0
-            case 1 =>
-                sprite x = 1
-                sprite y = 0
-            case 2 =>
-                sprite x = 0
-                sprite y = 1
-            case 3 =>
-                sprite x = 1
-                sprite y = 1
+            case ShotType PELLET =>
+                (x, y) = (0, 0)
+
+            case ShotType FIREBALL =>
+                (x, y) = (1, 0)
+
+            case ShotType MISSILE =>
+                (x, y) = (0, 1)
+
+            case ShotType STARS =>
+                (x, y) = (1, 1)
+
+            case ShotType MIL_MISSILE =>
+                (x, y) = (0, 1)
+                friendly = false
         }
+
+        spritePath := "assets/png/%sshots.png" format(friendly ? "" : "mob")
+        sprite = GlGridSprite new(spritePath, 2, 2)
+        (sprite x, sprite y) = (x, y)
         add(sprite)
         pos set!(initialPos)
         vel set!(initialVel)
@@ -51,17 +71,20 @@ Shot: class extends GlGroup {
         // later: shot-specific behaviour
         match type {
             // Rat pellet
-            case 0 =>
+            case ShotType PELLET =>
 
             // Fire balls of the dragon
-            case 1 =>
+            case ShotType FIREBALL =>
 
             // Missiles
-            case 2 =>
+            case ShotType MISSILE =>
 
             // Ninja stars
-            case 3 =>
+            case ShotType STARS =>
                 angle += 5.0
+
+            // Green missile
+            case ShotType MIL_MISSILE =>
         }
 
         if (!pos inside?(origin, stageSize)) {
