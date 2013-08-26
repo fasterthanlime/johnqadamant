@@ -45,8 +45,8 @@ StoryStage: class extends Stage {
         )
     }
 
-    newGame: func {
-        john hose publish(ZBag make("new game") )
+    next: func {
+        john hose publish(ZBag make("select character") )
     }
 
     update: func {
@@ -60,11 +60,15 @@ StoryStage: class extends Stage {
             yBody = 0
 
             counter += 1
+            if (input isPressed(KeyCode SPACE)) {
+                counter += 5
+            }
+
             if (counter > 100) {
                 bg opacity *= 0.92
             }
             if (counter > 130) {
-                newGame()
+                next()
             }
         }
 

@@ -11,7 +11,7 @@ import structs/[ArrayList, HashMap]
 
 // ours
 import johnq/[stage]
-import johnq/stages/[menu, winlose, game, story]
+import johnq/stages/[menu, winlose, game, story, selector]
 
 JohnQ: class extends App {
 
@@ -31,8 +31,8 @@ JohnQ: class extends App {
     setup: func {
         // stages
         stages put("menu", MenuStage new(this))
-
         stages put("story", StoryStage new(this))
+        stages put("selector", SelectorStage new(this))
 
         stages put("game", GameStage new(this))
 
@@ -57,6 +57,8 @@ JohnQ: class extends App {
         match message {
             case "read story" =>
                 switchTo("story")
+            case "select character" =>
+                switchTo("selector")
             case "new game" =>
                 switchTo("game")
             case "return to menu" =>
