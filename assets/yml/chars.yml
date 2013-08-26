@@ -5,7 +5,7 @@ characters:
           This little rascal was not only Speaker of the House for two years,
           he was also President of the Second Bank of the United States founded
           by his friend John Marshall.
-      challenge: score_only
+      challenge: none
 
     - name: John Marshall
       ship: [2, 0]
