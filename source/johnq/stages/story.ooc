@@ -51,10 +51,10 @@ StoryStage: class extends Stage {
 
     update: func {
         if (yBody < 0) {
-            yBody += 1.01
+            yBody += 0.7
 
             if (input isPressed(KeyCode SPACE)) {
-                yBody += 8.0
+                yBody += 15.0
             }
         } else {
             yBody = 0
@@ -63,12 +63,12 @@ StoryStage: class extends Stage {
             if (counter > 100) {
                 body opacity *= 0.98
             }
-            if (counter > 220) {
+            if (counter > 160) {
                 newGame()
             }
         }
 
-        body pos y = body pos y * 0.95 + yBody * 0.05
+        body pos y = body pos y * 0.91 + yBody * 0.09
     }
 
 }

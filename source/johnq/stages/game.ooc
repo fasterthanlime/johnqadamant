@@ -91,11 +91,14 @@ GameStage: class extends Stage {
                 case (shot: Shot) =>
                     if (!shot update()) {
                         iter remove()
+                        continue
                     }
+
                     if (!shot friendly) {
                         if (shot pos inside?(bl, tr)) {
                             player takeShotDamage(shot)
                             shot alive = false
+                            iter remove()
                         }
                     }
             }

@@ -156,6 +156,8 @@ Mob: class extends GlGroup {
     // state thingy
     xDelta := 3.0
     counter := 0
+    counter2 := 0
+    counter3 := 0
 
     yDelta := 1.0
 
@@ -164,9 +166,6 @@ Mob: class extends GlGroup {
     // gfx
     collision: GlRectangle
     sprite: GlGridSprite
-
-    // spawn
-    shots := ArrayList<Shot> new()
 
     init: func (=map, x, y: Int) {
         sprite = GlGridSprite new("assets/png/mobs.png", 2, 2)
@@ -241,22 +240,15 @@ Mob: class extends GlGroup {
 
         counter -= 1
         if (counter < 0) {
-            counter = 3
+            counter = 4
+            counter2 += 1
 
-            removeDeadShots()
-            if (shots size < 5) {
+            if (counter2 > 5) {
+                counter2 = 0
+                counter = 80
+            } else {
                 shotVel := Vec2 fromAngle(sprite angle toRadians()) mul(9.0)
                 propel(ShotType MIL_MISSILE, shotVel)
-            }
-        }
-    }
-
-    removeDeadShots: func {
-        iter := shots iterator()
-        while (iter hasNext?()) {
-            s := iter next()
-            if (!s alive) {
-                iter remove()
             }
         }
     }
@@ -265,7 +257,6 @@ Mob: class extends GlGroup {
         realPos := map pos add(pos)
         shot := Shot new(map stage, type, realPos, vel)
         map stage shots add(shot)
-        shots add(shot)
     }
 
     resetCounter: func {
