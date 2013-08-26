@@ -145,6 +145,10 @@ GameStage: class extends Stage {
         john hose publish(ZBag make("lost"))
     }
 
+    won: func {
+        john hose publish(ZBag make("won"))
+    }
+
 }
 
 Hitbox: class {

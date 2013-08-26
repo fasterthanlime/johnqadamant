@@ -23,7 +23,8 @@ QMap: class extends GlGroup {
     mobs := ArrayList<Mob> new()
     explosions := ArrayList<Explosion> new()
 
-    yDelta := -1
+    yDelta := -1.0
+    worldHeight: Int
 
     init: func (=stage)
 
@@ -35,6 +36,8 @@ QMap: class extends GlGroup {
         "width / height = %d, %d" printfln(map width, map height)
         "tile width / height = %d, %d" printfln(map tileWidth, map tileHeight)
         "layer count = %d" printfln(map layers size)
+
+        worldHeight = map height * map tileHeight
 
         decor := map layers get("decor")
         if (!decor) raise("Malformed map: %s" format(path))
@@ -120,6 +123,10 @@ QMap: class extends GlGroup {
 
         updateMobs()
         updateExplosions()
+
+        if (pos y >= worldHeight) {
+            stage won()
+        }
     }
 
     updateMobs: func {

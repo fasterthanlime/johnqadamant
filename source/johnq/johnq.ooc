@@ -63,7 +63,7 @@ JohnQ: class extends App {
                 switchTo("menu")
             case "lost" =>
                 switchTo("lose")
-            case "win" =>
+            case "won" =>
                 switchTo("win")
             case "exit" =>
                 quit()
