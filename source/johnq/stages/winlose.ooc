@@ -1,15 +1,47 @@
 
+// third party
+import dye/[core, math, sprite]
+import gnaar/[zbag]
+
 // ours
-import johnq/[stage]
+import johnq/[johnq, stage]
 
-WinStage: class extends Stage {
+WinLoseStage: class extends Stage {
 
-    init: super func
+    bg: GlSprite
+
+    init: func (.john, spritePath: String) {
+        super(john)
+
+        bg = GlSprite new(spritePath)
+        bg center = false
+        add(bg)
+    }
+
+    setup: func {
+        setupEvents()
+    }
+
+    setupEvents: func {
+        input onKeyRelease(|kr|
+            john hose publish(ZBag make("return to menu") )
+        )
+    }
 
 }
 
-LoseStage: class extends Stage {
+WinStage: class extends WinLoseStage {
 
-    init: super func
+    init: func (.john) {
+        super(john, "assets/png/win.png")
+    }
+
+}
+
+LoseStage: class extends WinLoseStage {
+
+    init: func (.john) {
+        super(john, "assets/png/lose.png")
+    }
 
 }

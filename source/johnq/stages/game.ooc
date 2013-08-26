@@ -1,6 +1,6 @@
 
 // ours
-import johnq/[johnq, stage, player, qtile, shot]
+import johnq/[johnq, stage, player, qtile, shot, gameui]
 
 // third party
 import dye/[core, sprite, input, math, primitives]
@@ -11,6 +11,8 @@ GameStage: class extends Stage {
     player: Player
     map := QMap new(this)
     shots := GlGroup new()
+
+    ui: GameUI
 
     init: super func
 
@@ -30,6 +32,9 @@ GameStage: class extends Stage {
         add(map)
         add(player)
         add(shots)
+
+        ui = GameUI new(this)
+        add(ui)
 
         initEvents()
 
@@ -69,6 +74,7 @@ GameStage: class extends Stage {
         player update()
         map update()
         updateShots()
+        ui update()
     }
 
     updateShots: func {
@@ -121,6 +127,10 @@ GameStage: class extends Stage {
             }
         }
 
+    }
+
+    lost: func {
+        john hose publish(ZBag make("lost"))
     }
 
 }

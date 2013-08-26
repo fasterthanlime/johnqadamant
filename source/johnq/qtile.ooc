@@ -62,7 +62,8 @@ QMap: class extends GlGroup {
     }
 
     convertMapPos: func (x, y: Int) -> Vec2 {
-        vec2(x * map tileWidth, (map height - y) * map tileHeight)
+        vec2(x * map tileWidth + map tileWidth / 2,
+            (map height - y) * map tileHeight + map tileHeight / 2)
     }
 
     reset!: func {

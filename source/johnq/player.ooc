@@ -17,7 +17,9 @@ Player: class extends GlGroup {
     body: GlSprite
 
     vel := vec2(0.0, 0.0)
-    maxVel := 8.0
+
+    maxVelX := 10.0
+    maxVelY := 8.0
 
     shotType := ShotType PELLET
 
@@ -92,6 +94,11 @@ Player: class extends GlGroup {
                 life -= 10
             // TODO: other cases
         }
+
+        if (life < 0) {
+            life = 0
+            stage lost()
+        }
     }
 
     propel: func (pos, vel: Vec2) {
@@ -107,20 +114,20 @@ Player: class extends GlGroup {
     }
 
     constrainVel: func {
-        if (vel x > maxVel) {
-            vel x = maxVel
+        if (vel x > maxVelX) {
+            vel x = maxVelX
         }
 
-        if (vel x < -maxVel) {
-            vel x = -maxVel
+        if (vel x < -maxVelX) {
+            vel x = -maxVelX
         }
 
-        if (vel y > maxVel) {
-            vel y = maxVel
+        if (vel y > maxVelY) {
+            vel y = maxVelY
         }
 
-        if (vel y < -maxVel) {
-            vel y = -maxVel
+        if (vel y < -maxVelY) {
+            vel y = -maxVelY
         }
     }
 
