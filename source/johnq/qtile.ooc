@@ -112,7 +112,13 @@ QMap: class extends GlGroup {
     update: func {
         pos y += yDelta
 
-        for (mob in mobs) {
+        updateMobs()
+    }
+
+    updateMobs: func {
+        iter := mobs iterator()
+        while (iter hasNext?()) {
+            mob := iter next()
             y := (pos y + mob pos y)
             padding := 100
 
@@ -121,7 +127,10 @@ QMap: class extends GlGroup {
             padding = 20
             if (mob pos x < padding) mob pos x = padding
             if (mob pos x > stage size x - padding) mob pos x = stage size x - padding
-            mob update()
+
+            if (!mob update()) {
+                iter remove()
+            }
         }
     }
 
@@ -156,7 +165,9 @@ Mob: class extends GlGroup {
     type: MobType
     map: QMap
 
+    // stays false while off-screen
     active := false
+    alive := true
 
     // state thingy
     xDelta := 3.0
@@ -167,6 +178,8 @@ Mob: class extends GlGroup {
     yDelta := 1.0
 
     idealAngle := 0.0
+
+    health: Int
 
     // gfx
     radius: Float
@@ -204,6 +217,7 @@ Mob: class extends GlGroup {
         sprite = GlGridSprite new("assets/png/mobs.png", 2, 2)
         add(sprite)
         initCollision()
+        initStats()
     }
 
     initCollision: func {
@@ -222,14 +236,41 @@ Mob: class extends GlGroup {
         add(collision)
     }
 
-    update: func {
-        if (!active) return
+    initStats: func {
+        health = match type {
+            case MobType MOLAR   => 100
+            case MobType DOVE    => 10
+            case MobType TURRET  => 500
+            case => 20
+        }
+    }
+
+    takeDamage: func (shot: Shot) {
+        health -= shot damage
+    }
+
+    update: func -> Bool {
+        if (!active) {
+            // just because we're off screen doesn't mean we're dead
+            visible = false
+            return true
+        }
+
+        visible = true
+
+        if (health < 0) {
+            // TODO: explosion?
+            alive = false
+            active = false
+        }
 
         match type {
             case MobType MOLAR  => updateMolar()
             case MobType DOVE   => updateDove()
             case MobType TURRET => updateTurret()
         }
+
+        return alive
     }
 
     updateMolar: func {

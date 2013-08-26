@@ -93,8 +93,7 @@ GameStage: class extends Stage {
                         for (mob in map mobs) {
                             mobPos := mob pos add(map pos)
                             if (mobPos dist(shot pos) < mob radius) {
-                                // TODO: health and all that shiznit
-                                map removeMob(mob)
+                                mob takeDamage(shot)
                             }
                         }
                     } else {

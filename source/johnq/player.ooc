@@ -95,11 +95,7 @@ Player: class extends GlGroup {
     }
 
     takeShotDamage: func (shot: Shot) {
-        match (shot type) {
-            case ShotType MIL_MISSILE =>
-                life -= 10
-            // TODO: other cases
-        }
+        life -= shot damage
 
         if (life < 0) {
             life = 0
