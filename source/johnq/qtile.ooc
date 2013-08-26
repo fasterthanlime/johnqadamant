@@ -211,7 +211,7 @@ Mob: class extends GlGroup {
     health: Int
 
     // gfx
-    radius: Float
+    radius, radiusSquared: Float
     collision: GlSprite
     sprite: GlGridSprite
 
@@ -256,6 +256,7 @@ Mob: class extends GlGroup {
             case MobType TURRET => 60.0
             case => 128.0
         }
+        radiusSquared = radius * radius
 
         collision = GlSprite new("assets/png/circle.png")
         factor := radius / 256.0

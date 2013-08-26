@@ -89,8 +89,11 @@ GameStage: class extends Stage {
                         if (shot friendly) {
                             // can we hurt enemies?
                             for (mob in map mobs) {
-                                mobPos := mob pos add(map pos)
-                                if (mobPos dist(shot pos) < mob radius) {
+                                x := mob pos x + map pos x - shot pos x
+                                y := mob pos y + map pos y - shot pos y
+                                distSquared := x * x + y * y
+
+                                if (distSquared < mob radiusSquared) {
                                     mob takeDamage(shot)
                                     if (shot oneShot?) {
                                         iter remove()
