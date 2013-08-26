@@ -164,7 +164,8 @@ Mob: class extends GlGroup {
     idealAngle := 0.0
 
     // gfx
-    collision: GlRectangle
+    radius: Float
+    collision: GlSprite
     sprite: GlGridSprite
 
     init: func (=map, x, y: Int) {
@@ -197,17 +198,20 @@ Mob: class extends GlGroup {
     prepare: func {
         sprite = GlGridSprite new("assets/png/mobs.png", 2, 2)
         add(sprite)
-        initCollisionBox()
+        initCollision()
     }
 
-    initCollisionBox: func {
-        size := match type {
-            case MobType MOLAR  => vec2(80, 70)
-            case MobType DOVE   => vec2(30, 30)
-            case MobType TURRET => vec2(78, 78)
-            case => vec2(128, 128)
+    initCollision: func {
+        radius = match type {
+            case MobType MOLAR  => 70.0
+            case MobType DOVE   => 30.0
+            case MobType TURRET => 90.0
+            case => 128.0
         }
-        collision = GlRectangle new(size)
+
+        collision = GlSprite new("assets/png/circle.png")
+        factor := radius / 256.0
+        collision scale set!(factor, factor)
         collision color set!(255, 0, 0)
         collision opacity = 0.5
         add(collision)
