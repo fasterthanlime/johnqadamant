@@ -1,0 +1,14 @@
+characters:
+    - name: John Randolph of Roanoke
+      ship: [0, 0]
+      description: >
+          John Randolph was a Congressman and plantation owner from Virginia.
+          He also served as Minister to Russia, hence his red ship to the colors
+          of the Motherland.
+          
+          He has been retired from quite some time - but he has kept good
+          relations with former sovietic friends. His mission: equality -
+          they shall ALL die!
+      challenge: destroy_all
+    - name:
+

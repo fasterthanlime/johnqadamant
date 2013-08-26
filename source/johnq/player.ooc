@@ -15,7 +15,7 @@ Player: class extends GlGroup {
 
     collisionRect: GlRectangle
     halfSize: Vec2
-    body: GlSprite
+    body: GlGridSprite
     hitbox: Hitbox
 
     vel := vec2(0.0, 0.0)
@@ -31,7 +31,13 @@ Player: class extends GlGroup {
     missileAngle := 0.0
 
     init: func (=stage) {
-        body = GlSprite new("assets/png/ship-small.png")
+        body = GlGridSprite new("assets/png/ship.png", 4, 4)
+
+        // TODO: actual character selector
+        (body x, body y) = (0, 0)
+        factor := 0.6
+        body scale set!(factor, factor)
+
         add(body)
 
         collisionRect = GlRectangle new(vec2(45, 25))

@@ -84,8 +84,8 @@ JohnQ: class extends App {
     }
 
     update: func {
-        currentStage update()
         hose dispatch()
+        currentStage update()
     }
 
 }
