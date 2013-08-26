@@ -23,7 +23,7 @@ GameStage: class extends Stage {
             case ShotType PELLET => 2
             case ShotType FIREBALL => 20
             case ShotType MISSILE => 5
-            case ShotType STARS => 10
+            case ShotType STARS => 5
         }
     } }
 

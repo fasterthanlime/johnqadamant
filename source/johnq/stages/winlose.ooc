@@ -23,7 +23,7 @@ WinLoseStage: class extends Stage {
     }
 
     setupEvents: func {
-        input onKeyRelease(|kr|
+        input onKeyPress(|kr|
             john hose publish(ZBag make("return to menu") )
         )
     }

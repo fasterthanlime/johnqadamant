@@ -23,7 +23,7 @@ QMap: class extends GlGroup {
     mobs := ArrayList<Mob> new()
     explosions := ArrayList<Explosion> new()
 
-    yDelta := -1.0
+    yDelta := -8.0
     worldHeight: Int
 
     init: func (=stage)
@@ -124,7 +124,7 @@ QMap: class extends GlGroup {
         updateMobs()
         updateExplosions()
 
-        if (pos y >= worldHeight) {
+        if (pos y <= stage size y - worldHeight) {
             stage won()
         }
     }

@@ -83,14 +83,8 @@ Player: class extends GlGroup {
                 propel(vec2(pos x - x1 * factor, pos y + yDelta), vec2(-x1 * 2.0, 15))
 
             case ShotType STARS =>
-                yDelta := 8
-                xDelta := 30
                 vel := vec2(0, 10)
-
-                f := func (xd: Float) {
-                    propel(pos add(xd, yDelta), vel)
-                }
-                f(-xDelta); f(xDelta)
+                propel(pos add(0, 25), vel)
         }
     }
 
