@@ -11,7 +11,7 @@ import structs/[ArrayList, HashMap]
 
 // ours
 import johnq/[stage]
-import johnq/stages/[menu, winlose, game]
+import johnq/stages/[menu, winlose, game, story]
 
 JohnQ: class extends App {
 
@@ -31,9 +31,13 @@ JohnQ: class extends App {
     setup: func {
         // stages
         stages put("menu", MenuStage new(this))
+
+        stages put("story", StoryStage new(this))
+
+        stages put("game", GameStage new(this))
+
         stages put("win", WinStage new(this))
         stages put("lose", LoseStage new(this))
-        stages put("game", GameStage new(this))
 
         // events
         hose subscribe(|bag| onEvent(bag))
@@ -51,6 +55,8 @@ JohnQ: class extends App {
         logger info("Global game event: %s", message)
 
         match message {
+            case "read story" =>
+                switchTo("story")
             case "new game" =>
                 switchTo("game")
             case "return to menu" =>

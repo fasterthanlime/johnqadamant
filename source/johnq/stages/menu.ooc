@@ -22,7 +22,7 @@ MenuStage: class extends Stage {
         input onKeyRelease(|kr|
             match (kr scancode) {
                 case KeyCode SPACE =>
-                    john hose publish(ZBag make("new game"))
+                    john hose publish(ZBag make("read story"))
                 case KeyCode ESC =>
                     john hose publish(ZBag make("exit"))
             }

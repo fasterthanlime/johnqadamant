@@ -183,14 +183,14 @@ Mob: class extends GlGroup {
             }
         }
 
-        initCollisionBox()
         add(sprite)
+        initCollisionBox()
     }
 
     initCollisionBox: func {
         size := match type {
-            case MobType MOLAR  => vec2(90, 80)
-            case MobType DOVE   => vec2(57, 53)
+            case MobType MOLAR  => vec2(80, 70)
+            case MobType DOVE   => vec2(30, 30)
             case MobType TURRET => vec2(78, 78)
             case => vec2(128, 128)
         }
