@@ -23,7 +23,7 @@ QMap: class extends GlGroup {
     mobs := ArrayList<Mob> new()
     explosions := ArrayList<Explosion> new()
 
-    yDelta := -8.0
+    yDelta := -1.0
     worldHeight: Int
 
     init: func (=stage)

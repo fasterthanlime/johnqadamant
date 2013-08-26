@@ -1,14 +1,36 @@
 characters:
+    - name: Langdon Cheves
+      ship: [3, 0]
+      description: >
+          This little rascal was not only Speaker of the House for two years,
+          he was also President of the Second Bank of the United States founded
+          by his friend John Marshall.
+      challenge: score_only
+
+    - name: John Marshall
+      ship: [2, 0]
+      description: >
+          John Marshall was the longest serving Chief Justice of the US. That
+          guy was basically the law. One of his decisions was to create the
+          Second Bank of the United States. He eventually declined to run
+          inn 1824 - but my guess is that he would have loved to have his
+          very own presidential coin.
+      challenge: score_only
+
     - name: John Randolph of Roanoke
       ship: [0, 0]
       description: >
           John Randolph was a Congressman and plantation owner from Virginia.
           He also served as Minister to Russia, hence his red ship to the colors
-          of the Motherland.
-          
-          He has been retired from quite some time - but he has kept good
-          relations with former sovietic friends. His mission: equality -
-          they shall ALL die!
+          of the Motherland. He has been retired from quite some time - but
+          he has kept good relations with former sovietic friends.
       challenge: destroy_all
-    - name:
 
+    - name: Dewitt Clinton
+      ship: [1, 0]
+      description: >
+          Clinton was a United States Senator who also happened to be the Sixth
+          Governor of New York. He was a member of the Erie Canal commission and
+          quickly became the driving force behind its construction. His ship
+          is made of solidified water, which only he knows about.
+      challenge: dunno
