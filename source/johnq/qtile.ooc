@@ -168,9 +168,6 @@ Mob: class extends GlGroup {
     sprite: GlGridSprite
 
     init: func (=map, x, y: Int) {
-        sprite = GlGridSprite new("assets/png/mobs.png", 2, 2)
-        (sprite x, sprite y) = (x, y)
-
         type = match y {
             case 0 => match x {
                 case 0 => MobType MOLAR
@@ -181,7 +178,24 @@ Mob: class extends GlGroup {
                 case 1 => MobType UNK2
             }
         }
+        prepare()
+        (sprite x, sprite y) = (x, y)
+    }
 
+    init: func ~spawn (=map, =type) {
+        prepare()
+        x, y: Int
+        match type {
+            case MobType MOLAR  => (x, y) = (0, 0)
+            case MobType DOVE   => (x, y) = (1, 0)
+            case MobType TURRET => (x, y) = (0, 1)
+            case MobType UNK2   => (x, y) = (1, 1)
+        }
+        (sprite x, sprite y) = (x, y)
+    }
+
+    prepare: func {
+        sprite = GlGridSprite new("assets/png/mobs.png", 2, 2)
         add(sprite)
         initCollisionBox()
     }
@@ -210,6 +224,13 @@ Mob: class extends GlGroup {
     }
 
     updateMolar: func {
+        counter -= 1
+        if (counter < 0) {
+            counter = 40
+            mob := Mob new(map, MobType DOVE)
+            map addMob(mob)
+            mob pos set!(pos)
+        }
     }
 
     updateDove: func {

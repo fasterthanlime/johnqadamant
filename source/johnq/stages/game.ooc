@@ -94,7 +94,10 @@ GameStage: class extends Stage {
                         continue
                     }
 
-                    if (!shot friendly) {
+                    if (shot friendly) {
+                        // can we hurt enemies?
+                    } else {
+                        // can we hurt the player?
                         if (shot pos inside?(bl, tr)) {
                             player takeShotDamage(shot)
                             shot alive = false
