@@ -236,7 +236,7 @@ Mob: class extends GlGroup {
         counter -= 1
         if (counter < 0) {
             counter = 24
-            shotVel := Vec2 fromAngle(sprite angle toRadians()) mul(8.0)
+            shotVel := Vec2 fromAngle(sprite angle toRadians()) mul(6.0)
             propel(ShotType MIL_MISSILE, shotVel)
         }
     }
