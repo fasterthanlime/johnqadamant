@@ -52,3 +52,11 @@ characters:
           Secretary of the Navy: boats! In 2013, he has perfected the airboat, and
           it's his weapon of choice to attack The Adamant.
 
+    - name: John C. Calhoun
+      ship: [2, 1]
+      description: >
+          Calhoun is a though sunnofabitch. During his career as a politician, he
+          was distrustful of democracy, and he redefined republicanism to include...
+          a justification for slavery! Hence, his ship is a shackled, black foot.
+      challenge: dunno
+

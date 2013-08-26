@@ -34,7 +34,7 @@ Player: class extends GlGroup {
         body = GlGridSprite new("assets/png/ship.png", 4, 4)
 
         // TODO: actual character selector
-        (body x, body y) = (0, 1)
+        (body x, body y) = (2, 1)
         factor := 0.6
         body scale set!(factor, factor)
 
