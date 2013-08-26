@@ -48,16 +48,16 @@ Player: class extends GlGroup {
                 f(-xDelta); f(xDelta)
 
             case ShotType FIREBALL =>
-                yDelta := 25
-                xDelta := 12
-                vxDelta := 4
+                speed := 25.0
 
-                f := func (xd, xd2, y: Float) {
-                    propel(pos add(xd, y), vec2(xd2, 15))
-                }
-                f(-xDelta, -vxDelta, yDelta - 18)
-                f(0, 0, yDelta)
-                f(xDelta, vxDelta, yDelta - 18)
+                delta := 8
+                incr := 360.0 / delta as Float
+                a := 0.0
+                delta times(||
+                    vel := Vec2 fromAngle(a toRadians()) mul(speed)
+                    propel(pos, vel)
+                    a += incr
+                )
 
             case ShotType MISSILE =>
                 missileAngle += 0.2
@@ -127,7 +127,7 @@ Player: class extends GlGroup {
             pos y = 0
         }
 
-        maxY := stage size y - 200
+        maxY := stage size y
         if (pos y > maxY) {
             pos y = maxY
         }

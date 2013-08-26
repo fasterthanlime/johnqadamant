@@ -19,7 +19,7 @@ GameStage: class extends Stage {
     shootThreshold : Int { get {
         match (player shotType) {
             case ShotType PELLET => 2
-            case ShotType FIREBALL => 4
+            case ShotType FIREBALL => 2
             case ShotType MISSILE => 5
             case ShotType STARS => 10
         }

@@ -231,12 +231,12 @@ Mob: class extends GlGroup {
             sprite angle -= 360.0
         }
 
-        sprite angle = sprite angle * 0.9 + idealAngle * 0.1
+        sprite angle = sprite angle * 0.96 + idealAngle * 0.04
 
         counter -= 1
         if (counter < 0) {
-            counter = 8
-            shotVel := Vec2 fromAngle(sprite angle toRadians()) mul(7.0)
+            counter = 24
+            shotVel := Vec2 fromAngle(sprite angle toRadians()) mul(8.0)
             propel(ShotType MIL_MISSILE, shotVel)
         }
     }
