@@ -11,6 +11,7 @@ import structs/[ArrayList]
 import math/Random
 
 // ours
+import johnq/shot
 import johnq/stages/[game]
 
 QMap: class extends GlGroup {
@@ -176,8 +177,8 @@ Mob: class extends GlGroup {
             }
         }
 
-        add(sprite)
         initCollisionBox()
+        add(sprite)
     }
 
     initCollisionBox: func {
@@ -218,10 +219,31 @@ Mob: class extends GlGroup {
     }
 
     updateTurret: func {
-        idealAngle = pos add(map pos) \
-            sub(map stage player pos) \
-            angle() toDegrees() + 90.0
+        idealAngle = map stage player pos \
+            sub(pos add(map pos)) \
+            angle() toDegrees()
+
+        if (idealAngle > 360.0 && sprite angle < 360.0) {
+            sprite angle += 360.0
+        }
+
+        if (idealAngle < 360.0 && sprite angle > 360.0) {
+            sprite angle -= 360.0
+        }
+
         sprite angle = sprite angle * 0.9 + idealAngle * 0.1
+
+        counter -= 1
+        if (counter < 0) {
+            counter = 8
+            shotVel := Vec2 fromAngle(sprite angle toRadians()) mul(7.0)
+            propel(ShotType MIL_MISSILE, shotVel)
+        }
+    }
+
+    propel: func (type: ShotType, vel: Vec2) {
+        realPos := map pos add(pos)
+        map stage shots add(Shot new(map stage, type, realPos, vel))
     }
 
     resetCounter: func {

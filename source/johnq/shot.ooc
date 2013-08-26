@@ -78,6 +78,7 @@ Shot: class extends GlGroup {
 
             // Missiles
             case ShotType MISSILE =>
+                setAngleFromVel()
 
             // Ninja stars
             case ShotType STARS =>
@@ -85,6 +86,7 @@ Shot: class extends GlGroup {
 
             // Green missile
             case ShotType MIL_MISSILE =>
+                setAngleFromVel()
         }
 
         if (!pos inside?(origin, stageSize)) {
@@ -93,6 +95,11 @@ Shot: class extends GlGroup {
         }
 
         true
+    }
+
+    setAngleFromVel: func {
+        // ah, I thought it wasn't that simple...
+        angle = vel angle() toDegrees()
     }
 
 }
