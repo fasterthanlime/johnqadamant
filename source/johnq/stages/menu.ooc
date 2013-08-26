@@ -21,7 +21,7 @@ MenuStage: class extends Stage {
     initEvents: func {
         input onKeyRelease(|kr|
             match (kr scancode) {
-                case KeyCode SPACE =>
+                case KeyCode ENTER =>
                     john hose publish(ZBag make("read story"))
                 case KeyCode ESC =>
                     john hose publish(ZBag make("exit"))

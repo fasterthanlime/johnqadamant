@@ -1,6 +1,6 @@
 
 // third party
-import dye/[core, math, sprite]
+import dye/[core, math, sprite, input]
 import gnaar/[zbag]
 
 // ours
@@ -24,7 +24,10 @@ WinLoseStage: class extends Stage {
 
     setupEvents: func {
         input onKeyPress(|kr|
-            john hose publish(ZBag make("return to menu") )
+            match (kr scancode) {
+                case KeyCode ENTER || KeyCode ESC =>
+                    john hose publish(ZBag make("return to menu") )
+            }
         )
     }
 
@@ -45,3 +48,4 @@ LoseStage: class extends WinLoseStage {
     }
 
 }
+

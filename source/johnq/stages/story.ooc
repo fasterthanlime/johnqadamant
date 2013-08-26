@@ -61,9 +61,9 @@ StoryStage: class extends Stage {
 
             counter += 1
             if (counter > 100) {
-                body opacity *= 0.98
+                bg opacity *= 0.92
             }
-            if (counter > 160) {
+            if (counter > 130) {
                 newGame()
             }
         }
