@@ -182,9 +182,9 @@ Mob: class extends GlGroup {
 
     initCollisionBox: func {
         size := match type {
-            case MobType MOLAR => vec2(90, 80)
-            case MobType DOVE => vec2(57, 53)
-            case MobType DOVE => vec2(78, 78)
+            case MobType MOLAR  => vec2(90, 80)
+            case MobType DOVE   => vec2(57, 53)
+            case MobType TURRET => vec2(78, 78)
             case => vec2(128, 128)
         }
         collision = GlRectangle new(size)
@@ -218,8 +218,10 @@ Mob: class extends GlGroup {
     }
 
     updateTurret: func {
-        idealAngle = pos add(map pos) sub(map stage player pos) angle()
-        angle = angle * 0.7 + idealAngle * 0.3
+        idealAngle = pos add(map pos) \
+            sub(map stage player pos) \
+            angle() toDegrees() + 90.0
+        sprite angle = sprite angle * 0.9 + idealAngle * 0.1
     }
 
     resetCounter: func {
