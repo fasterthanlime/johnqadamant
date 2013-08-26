@@ -11,7 +11,8 @@ import structs/[ArrayList]
 
 SelectorStage: class extends Stage {
 
-    current := 0
+    currentIndex := 0
+    currentChar: Character
     chars: Chars
 
     init: super func
@@ -22,6 +23,9 @@ SelectorStage: class extends Stage {
         add(bg)
 
         chars = Chars new()
+        for (c in chars characters) {
+            add(c preview)
+        }
         updateCurrent()
 
         initEvents()
@@ -43,20 +47,35 @@ SelectorStage: class extends Stage {
     }
 
     cycle: func (delta: Int) {
-        current += delta
-        if (current < 0) {
-            current = 9
+        currentIndex += delta
+        if (currentIndex < 0) {
+            currentIndex = 9
         }
 
-        if (current > 9) {
-            current = 0
+        if (currentIndex > 9) {
+            currentIndex = 0
         }
 
         updateCurrent()
     }
 
     updateCurrent: func {
-        // change preview, name, description
+        currentChar = chars characters get(currentIndex)
+        "Switched to char %d, %s" printfln(currentIndex, currentChar name)
+    }
+
+    update: func {
+        alpha := 0.1
+
+        for (c in chars characters) {
+            target := 0.0
+            if (c == currentChar) {
+                target = 1.0
+            }
+            c preview opacity = \
+                target * alpha + \
+                c preview opacity * (1.0 - alpha)
+        }
     }
 
 }
@@ -69,28 +88,41 @@ Chars: class {
         doc := parseYaml("assets/yml/chars.yml")
         map := doc toMap()
         list := map get("characters") toList()
+
         "Got %d characters" printfln(list size)
+        for (el in list) {
+            ch := el toMap()
+            xy := ch get("ship") toList()
+            (x, y) := (xy get(0) toInt(), xy get(1) toInt())
+
+            name := ch get("name") toScalar()
+            description := ch get("description") toScalar()
+            challenge :=  ch get("challenge") toScalar()
+            characters add(Character new(x, y, name, description, challenge))
+        }
     }
 
 }
 
 Character: class {
 
+    x, y: Int
+    name, description, challenge: String
+
     preview: ShipPreview
 
-    init: func {
+    init: func (=x, =y, =name, =description, =challenge) {
+        preview = ShipPreview new(x, y)
     }
 
 }
 
-ShipPreview: class extends GlGroup {
+ShipPreview: class extends GlGridSprite {
 
-    stage: SelectorStage
-    sprite: GlGridSprite
-
-    init: func (=stage, x, y: Int) {
-        sprite = GlGridSprite new("assets/png/ship.png", 4, 4)
-        (sprite x, sprite y) = (x, y)
+    init: func (=x, =y) {
+        super("assets/png/ship.png", 4, 4)
+        pos set!(256, 720 - 256)
+        opacity = 0.0
     }
 
 }
