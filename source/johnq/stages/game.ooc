@@ -85,23 +85,27 @@ GameStage: class extends Stage {
                 case (shot: Shot) =>
                     if (!shot update()) {
                         iter remove()
-                        continue
-                    }
-
-                    if (shot friendly) {
-                        // can we hurt enemies?
-                        for (mob in map mobs) {
-                            mobPos := mob pos add(map pos)
-                            if (mobPos dist(shot pos) < mob radius) {
-                                mob takeDamage(shot)
-                            }
-                        }
                     } else {
-                        // can we hurt the player?
-                        if (player hitbox contains?(shot pos)) {
-                            player takeShotDamage(shot)
-                            shot alive = false
-                            iter remove()
+                        if (shot friendly) {
+                            // can we hurt enemies?
+                            for (mob in map mobs) {
+                                mobPos := mob pos add(map pos)
+                                if (mobPos dist(shot pos) < mob radius) {
+                                    map explode(shot pos)
+                                    mob takeDamage(shot)
+                                    if (shot oneShot?) {
+                                        iter remove()
+                                    }
+                                }
+                            }
+                        } else {
+                            // can we hurt the player?
+                            if (player hitbox contains?(shot pos)) {
+                                map explode(shot pos)
+                                player takeShotDamage(shot)
+                                shot alive = false
+                                iter remove()
+                            }
                         }
                     }
             }

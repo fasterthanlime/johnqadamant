@@ -33,7 +33,9 @@ Shot: class extends GlGroup {
 
     alive := true
 
+    // attributes
     damage: Int
+    oneShot? := true
 
     init: func (=stage, =type, initialPos, initialVel: Vec2) {
         super()
@@ -68,16 +70,23 @@ Shot: class extends GlGroup {
         pos set!(initialPos)
         vel set!(initialVel)
 
-        initDamage()
+        initAttributes()
     }
 
-    initDamage: func {
+    initAttributes: func {
         damage = match type {
             case ShotType PELLET =>      1
             case ShotType FIREBALL =>    2
             case ShotType MISSILE =>     5
             case ShotType STARS =>       5
             case ShotType MIL_MISSILE => 10
+        }
+
+        oneShot? = match type {
+            case ShotType STARS =>
+                false
+            case =>
+                true
         }
     }
 

@@ -21,6 +21,7 @@ QMap: class extends GlGroup {
     map: Map
     tiles := ArrayList<QTile> new()
     mobs := ArrayList<Mob> new()
+    explosions := ArrayList<Explosion> new()
 
     yDelta := -1
 
@@ -90,6 +91,11 @@ QMap: class extends GlGroup {
         add(mob) // gfx
     }
 
+    addExplosion: func (exp: Explosion) {
+        explosions add(exp)
+        add(exp) // gfx
+    }
+
     removeMob: func (mob: Mob) {
         mobs remove(mob)
         remove(mob) // gfx
@@ -113,6 +119,7 @@ QMap: class extends GlGroup {
         pos y += yDelta
 
         updateMobs()
+        updateExplosions()
     }
 
     updateMobs: func {
@@ -133,6 +140,22 @@ QMap: class extends GlGroup {
                 remove(mob)
             }
         }
+    }
+
+    updateExplosions: func {
+        iter := explosions iterator()
+        while (iter hasNext?()) {
+            exp := iter next()
+            if (!exp update()) {
+                iter remove()
+                remove(exp)
+            }
+        }
+    }
+
+    explode: func (epos: Vec2) {
+        exp := Explosion new(epos sub(pos))
+        addExplosion(exp)
     }
 
 }
@@ -333,6 +356,42 @@ Mob: class extends GlGroup {
 
     resetCounter: func {
         counter = Random randInt(30, 60)
+    }
+
+}
+
+/**
+ * KE-BLAM
+ */
+Explosion: class extends GlGridSprite {
+
+    alive := true
+    countdown := 20
+    radius := 0.4
+
+    init: func (initialPos: Vec2) {
+        super("assets/png/explosions.png", 2, 2)
+        (x, y) = (Random randInt(0, 1), Random randInt(0, 1))
+
+        pos set!(initialPos)
+        updateScale()
+
+        angle = Random randInt(0, 359) as Float
+    }
+
+    updateScale: func {
+        scale set!(radius, radius)
+    }
+
+    update: func -> Bool {
+        opacity -= 0.03
+        radius += 0.05
+        countdown -= 1
+        updateScale()
+
+        alive = (countdown > 0)
+
+        alive
     }
 
 }
