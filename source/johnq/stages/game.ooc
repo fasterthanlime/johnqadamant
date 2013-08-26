@@ -90,6 +90,13 @@ GameStage: class extends Stage {
 
                     if (shot friendly) {
                         // can we hurt enemies?
+                        for (mob in map mobs) {
+                            mobPos := mob pos add(map pos)
+                            if (mobPos dist(shot pos) < mob radius) {
+                                // TODO: health and all that shiznit
+                                map removeMob(mob)
+                            }
+                        }
                     } else {
                         // can we hurt the player?
                         if (player hitbox contains?(shot pos)) {

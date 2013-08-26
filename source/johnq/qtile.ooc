@@ -90,6 +90,11 @@ QMap: class extends GlGroup {
         add(mob) // gfx
     }
 
+    removeMob: func (mob: Mob) {
+        mobs remove(mob)
+        remove(mob) // gfx
+    }
+
     drawChildren: func (dye: DyeContext, modelView: Matrix4) {
         for (c in children) {
             actualPos := c pos add(pos)
