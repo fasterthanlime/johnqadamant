@@ -34,3 +34,13 @@ characters:
           quickly became the driving force behind its construction. His ship
           is made of solidified water, which only he knows about.
       challenge: dunno
+
+    - name: Nathanial Macon
+      ship: [0, 1]
+      description: >
+          Macon hated war. And when you see the money and interests that defense
+          contractors have spawned, who can blame him? However, before he tried
+          to shoot down the navy, he was a successful tobacco planter. In fact,
+          he like tobacco so much, his ship is fueled on cigars!
+      challenge: dunno
+
