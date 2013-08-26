@@ -72,7 +72,7 @@ Shot: class extends GlGroup {
     }
 
     initDamage: func {
-        match type {
+        damage = match type {
             case ShotType PELLET =>      1
             case ShotType FIREBALL =>    2
             case ShotType MISSILE =>     5

@@ -130,6 +130,7 @@ QMap: class extends GlGroup {
 
             if (!mob update()) {
                 iter remove()
+                remove(mob)
             }
         }
     }
