@@ -262,7 +262,7 @@ Mob: class extends GlGroup {
         collision scale set!(factor, factor)
         collision color set!(255, 0, 0)
         collision opacity = 0.5
-        add(collision)
+        //add(collision)
     }
 
     initStats: func {

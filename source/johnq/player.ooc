@@ -38,7 +38,7 @@ Player: class extends GlGroup {
         collisionRect color set!(255, 0, 0)
         collisionRect opacity = 0.3
         collisionRect pos y = -15
-        add(collisionRect)
+        //add(collisionRect)
 
         halfSize = collisionRect size mul(0.5)
 
