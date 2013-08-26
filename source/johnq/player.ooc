@@ -29,14 +29,14 @@ Player: class extends GlGroup {
     missileAngle := 0.0
 
     init: func (=stage) {
-        hitbox = GlRectangle new(vec2(67, 42))
-        hitbox color set!(255, 0, 0)
-        hitbox opacity = 0.3
-        hitbox pos y = -10
-        add(hitbox)
-
         body = GlSprite new("assets/png/ship-small.png")
         add(body)
+
+        hitbox = GlRectangle new(vec2(45, 25))
+        hitbox color set!(255, 0, 0)
+        hitbox opacity = 0.3
+        hitbox pos y = -15
+        add(hitbox)
     }
 
     shoot: func {
@@ -99,6 +99,11 @@ Player: class extends GlGroup {
             life = 0
             stage lost()
         }
+    }
+
+    reset!: func {
+        life = 100
+        pos set!(stage center x, stage size y * 0.2)
     }
 
     propel: func (pos, vel: Vec2) {

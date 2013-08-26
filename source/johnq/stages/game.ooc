@@ -46,7 +46,7 @@ GameStage: class extends Stage {
     }
 
     reset!: func {
-        player pos set!(john dye width * 0.5, john dye height * 0.2)
+        player reset!()
         map load("assets/maps/SmithThompson2.tmx")
         shots clear()
     }
@@ -79,10 +79,10 @@ GameStage: class extends Stage {
 
     updateShots: func {
         // can we hurt the player?
-        playerPos := player pos
+        hitPos := player pos add(player hitbox pos)
         halfSize := player hitbox size
-        bl := playerPos sub(halfSize)
-        tr := playerPos add(halfSize)
+        bl := hitPos sub(halfSize)
+        tr := hitPos add(halfSize)
 
         iter := shots children iterator()
         while (iter hasNext?()) {
@@ -95,7 +95,7 @@ GameStage: class extends Stage {
                     if (!shot friendly) {
                         if (shot pos inside?(bl, tr)) {
                             player takeShotDamage(shot)
-                            iter remove()
+                            shot alive = false
                         }
                     }
             }

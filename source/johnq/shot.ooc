@@ -31,6 +31,8 @@ Shot: class extends GlGroup {
 
     vel := vec2(0, 0)
 
+    alive := true
+
     init: func (=stage, =type, initialPos, initialVel: Vec2) {
         super()
 
@@ -91,10 +93,10 @@ Shot: class extends GlGroup {
 
         if (!pos inside?(origin, stageSize)) {
             // die!
-            return false
+            alive = false
         }
 
-        true
+        alive
     }
 
     setAngleFromVel: func {

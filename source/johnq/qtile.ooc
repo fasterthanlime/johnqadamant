@@ -76,6 +76,8 @@ QMap: class extends GlGroup {
             mob := mobs removeAt(0)
             remove(mob) // gfx
         }
+
+        pos set!(0, 0)
     }
 
     addTile: func (tile: QTile) {
@@ -163,6 +165,9 @@ Mob: class extends GlGroup {
     collision: GlRectangle
     sprite: GlGridSprite
 
+    // spawn
+    shots := ArrayList<Shot> new()
+
     init: func (=map, x, y: Int) {
         sprite = GlGridSprite new("assets/png/mobs.png", 2, 2)
         (sprite x, sprite y) = (x, y)
@@ -236,15 +241,31 @@ Mob: class extends GlGroup {
 
         counter -= 1
         if (counter < 0) {
-            counter = 24
-            shotVel := Vec2 fromAngle(sprite angle toRadians()) mul(6.0)
-            propel(ShotType MIL_MISSILE, shotVel)
+            counter = 3
+
+            removeDeadShots()
+            if (shots size < 5) {
+                shotVel := Vec2 fromAngle(sprite angle toRadians()) mul(9.0)
+                propel(ShotType MIL_MISSILE, shotVel)
+            }
+        }
+    }
+
+    removeDeadShots: func {
+        iter := shots iterator()
+        while (iter hasNext?()) {
+            s := iter next()
+            if (!s alive) {
+                iter remove()
+            }
         }
     }
 
     propel: func (type: ShotType, vel: Vec2) {
         realPos := map pos add(pos)
-        map stage shots add(Shot new(map stage, type, realPos, vel))
+        shot := Shot new(map stage, type, realPos, vel)
+        map stage shots add(shot)
+        shots add(shot)
     }
 
     resetCounter: func {
