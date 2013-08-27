@@ -56,7 +56,7 @@ GameStage: class extends Stage {
         input onKeyRelease(|kr|
             match (kr scancode) {
                 case KeyCode ESC =>
-                    john hose publish(ZBag make("return to menu"))
+                    john hose publish(ZBag make("select character"))
                 
                 case KeyCode F1 =>
                     player shotType = ShotType PELLET

@@ -34,8 +34,8 @@ JohnQ: class extends App {
 
     setup: func {
         // stages
-        stages put("menu", MenuStage new(this))
         stages put("story", StoryStage new(this))
+        stages put("menu", MenuStage new(this))
         stages put("selector", SelectorStage new(this))
 
         stages put("game", GameStage new(this))
@@ -51,7 +51,7 @@ JohnQ: class extends App {
         )
 
         // initial state
-        switchTo("menu")
+        switchTo("story")
     }
 
     onEvent: func (bag: ZBag) {

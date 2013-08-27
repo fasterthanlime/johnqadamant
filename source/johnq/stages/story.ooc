@@ -46,7 +46,7 @@ StoryStage: class extends Stage {
     }
 
     next: func {
-        john hose publish(ZBag make("select character") )
+        john hose publish(ZBag make("return to menu") )
     }
 
     update: func {

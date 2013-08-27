@@ -3,7 +3,7 @@
 import johnq/[johnq, stage]
 
 // third party
-import dye/[core, sprite, input]
+import dye/[core, sprite, input, text]
 import gnaar/[utils, zbag]
 
 // sdk
@@ -15,12 +15,24 @@ SelectorStage: class extends Stage {
     currentChar: Character
     chars: Chars
 
+    nameText, descText: GlText
+
     init: super func
 
     setup: func {
         bg := GlSprite new("assets/png/selector.png")
         bg center = false
         add(bg)
+
+        nameText = GlText new("assets/ttf/USDeclaration.ttf", "", 26)
+        nameText color set!(0, 0, 0)
+        nameText pos set!(40, 720 - 260)
+        add(nameText)
+
+        descText = GlText new("assets/ttf/USDeclaration.ttf", "", 18)
+        descText color set!(0, 0, 0)
+        descText pos set!(40, 720 - 360)
+        add(descText)
 
         chars = Chars new()
         for (c in chars characters) {
@@ -42,7 +54,7 @@ SelectorStage: class extends Stage {
                 case KeyCode RIGHT =>
                     cycle(1)
                 case KeyCode ESC =>
-                    john hose publish(ZBag make("exit"))
+                    john hose publish(ZBag make("return to menu"))
             }
         )
     }
@@ -63,6 +75,8 @@ SelectorStage: class extends Stage {
     updateCurrent: func {
         currentChar = chars characters get(currentIndex)
         "Switched to char %d, %s" printfln(currentIndex, currentChar name)
+        nameText value = currentChar name
+        descText value = currentChar description
     }
 
     update: func {
@@ -122,7 +136,7 @@ ShipPreview: class extends GlGridSprite {
 
     init: func (=x, =y) {
         super("assets/png/ship.png", 4, 4)
-        pos set!(256, 720 - 256)
+        pos set!(512 + 128, 720 - 256 + 32)
         opacity = 0.0
     }
 
