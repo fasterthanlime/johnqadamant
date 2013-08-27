@@ -3,3 +3,6 @@ rock_tmp
 
 johnq
 
+# win32 stuff
+*.exe
+*.dll
