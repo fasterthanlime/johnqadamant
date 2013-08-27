@@ -1,7 +1,7 @@
 characters:
     - name: Langdon Cheves
       ship: [3, 0]
-      description: >
+      description: |
           This little rascal was not only Speaker of the House for two years,
           he was also President of the Second Bank of the United States founded
           by his friend John Marshall.
@@ -9,7 +9,7 @@ characters:
 
     - name: John Marshall
       ship: [2, 0]
-      description: >
+      description: |
           John Marshall was the longest serving Chief Justice of the US. That
           guy was basically the law. One of his decisions was to create the
           Second Bank of the United States. He eventually declined to run
@@ -19,7 +19,7 @@ characters:
 
     - name: John Randolph of Roanoke
       ship: [0, 0]
-      description: >
+      description: |
           John Randolph was a Congressman and plantation owner from Virginia.
           He also served as Minister to Russia, hence his red ship to the colors
           of the Motherland. He has been retired from quite some time - but
@@ -28,7 +28,7 @@ characters:
 
     - name: Dewitt Clinton
       ship: [1, 0]
-      description: >
+      description: |
           Clinton was a United States Senator who also happened to be the Sixth
           Governor of New York. He was a member of the Erie Canal commission and
           quickly became the driving force behind its construction. His ship
@@ -37,7 +37,7 @@ characters:
 
     - name: Nathanial Macon
       ship: [0, 1]
-      description: >
+      description: |
           Macon hated war. And when you see the money and interests that defense
           contractors have spawned, who can blame him? However, before he tried
           to shoot down the navy, he was a successful tobacco planter. In fact,
@@ -46,7 +46,7 @@ characters:
 
     - name: Smith Thompson
       ship: [1, 1]
-      description: >
+      description: |
           After losing the 1824 election, Thompson was appointed to the United States
           Supreme Court. But his true passion was revealed to him when he was
           Secretary of the Navy: boats! In 2013, he has perfected the airboat, and
@@ -55,7 +55,7 @@ characters:
 
     - name: John C. Calhoun
       ship: [2, 1]
-      description: >
+      description: |
           Calhoun is a though sunnofabitch. During his career as a politician, he
           was distrustful of democracy, and he redefined republicanism to include...
           a justification for slavery! Hence, his ship is a shackled, black foot.
@@ -63,7 +63,7 @@ characters:
 
     - name: Henry Clay
       ship: [3, 1]
-      description: >
+      description: |
           Clay is a terrible person for two reasons: he was a lawyer AND a politician.
           In 1812, he almost single-handedly led the nation to war. Lincoln held Clay
           in high esteem. He was a man who believed in a strong economy, and most of
@@ -72,7 +72,7 @@ characters:
 
     - name: William H. Crawford
       ship: [0, 2]
-      description: >
+      description: |
           Crawford is the perfect pacifist - when he wussed out of the Secretary of War
           position, he was naturally assigned to the U.S. minister to France post.
           There, he learned about French cheese, and eventually, he fell so in love with
@@ -81,7 +81,7 @@ characters:
 
     - name: Andrew Jackson
       ship: [1, 2]
-      description: >
+      description: |
           On paper, Andrew Jackson seems like the best dude ever - heck, he was even
           elected president in 1827. So, it seems he has nothing to complain about,
           right? Right? Wrong. He is a little entitled piece of shit wealthy
