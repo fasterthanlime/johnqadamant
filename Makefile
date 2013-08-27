@@ -9,6 +9,12 @@ win32-debug: johnq.res
 win32-release: johnq.res
 	rock -v ${RELEASE_FLAGS} ${WIN_FLAGS}
 
+linux64:
+	PATH=${PATH}:~/Dev/prefix64/bin rock -v +-Wl,-rpath=bin/libs64/ -I${HOME}/Dev/prefix64/include -L${HOME}/Dev/prefix64/lib
+
+linux32:
+	PATH=${PATH}:~/Dev/prefix32/bin rock -v +-Wl,-rpath=bin/libs32/ -I${HOME}/Dev/prefix32/include -L${HOME}/Dev/prefix32/lib
+
 johnq.res:
 	windres -i johnq.rc -o johnq.res -O coff
 
