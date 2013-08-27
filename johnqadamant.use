@@ -2,7 +2,7 @@ Name: johnqadamant
 Version: 0.1
 Description: John Q. Kick-ass
 SourcePath: source
-Requires: dye, gnaar, bleep
+Requires: dye, gnaar, bleep, tiled
 Main: johnq/johnq
 
 version (windows) {
