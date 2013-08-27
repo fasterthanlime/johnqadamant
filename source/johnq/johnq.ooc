@@ -53,6 +53,10 @@ JohnQ: class extends App {
             dye setFullscreen(!dye fullscreen)
         )
 
+        dye input onKeyPress(KeyCode F12, |kp|
+            boombox config mute = !boombox config mute
+        )
+
         // initial state
         switchTo("story")
 
