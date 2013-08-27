@@ -142,6 +142,20 @@ QMap: class extends GlGroup {
             if (mob pos x < padding) mob pos x = padding
             if (mob pos x > stage size x - padding) mob pos x = stage size x - padding
 
+
+            // can we hurt the player?
+            if (mob type == MobType DOVE) {
+                x := mob pos x + pos x - stage player pos x
+                y := mob pos y + pos y - stage player pos y
+                distSquared := x * x + y * y
+
+                if (distSquared < mob radiusSquared) {
+                    mob die()
+                    stage player takeMobDamage(20)
+                }
+            }
+
+
             if (!mob update()) {
                 iter remove()
                 remove(mob)
@@ -259,7 +273,7 @@ Mob: class extends GlGroup {
     initCollision: func {
         radius = match type {
             case MobType MOLAR  => 50.0
-            case MobType DOVE   => 20.0
+            case MobType DOVE   => 35.0
             case MobType TURRET => 60.0
             case => 128.0
         }
@@ -284,6 +298,10 @@ Mob: class extends GlGroup {
 
     takeDamage: func (shot: Shot) {
         health -= shot damage
+    }
+    
+    die: func {
+        health = -1
     }
 
     update: func -> Bool {
@@ -325,7 +343,12 @@ Mob: class extends GlGroup {
         counter -= 1
         if (counter < 0) {
             resetCounter()
-            xDelta *= -1.0
+
+            if (map stage player pos x < pos x) {
+                xDelta = -1.0
+            } else {
+                xDelta = 1.0
+            }
         }
 
         pos x += xDelta

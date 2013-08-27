@@ -154,6 +154,10 @@ Player: class extends GlGroup {
         }
     }
 
+    takeMobDamage: func (damage: Int) {
+        life -= damage
+    }
+
     takeShotDamage: func (shot: Shot) {
         life -= shot damage
 
