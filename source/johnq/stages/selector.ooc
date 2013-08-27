@@ -4,7 +4,7 @@ import johnq/[johnq, stage]
 
 // third party
 import dye/[core, sprite, input, text]
-import gnaar/[utils, zbag]
+import gnaar/[zbag, yaml]
 
 // sdk
 import structs/[ArrayList]

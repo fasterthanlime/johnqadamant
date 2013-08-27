@@ -55,7 +55,7 @@ QMap: class extends GlGroup {
             qtile := QTile new(tileX, tileY)
             qtile pos set!(convertMapPos(x, y))
             addTile(qtile)
-            logger info("qtile %d, %d | qtile pos = %s", tileX, tileY, qtile pos _)
+            //logger info("qtile %d, %d | qtile pos = %s", tileX, tileY, qtile pos _)
         )
 
         mobs := map layers get("mobs")
@@ -117,9 +117,6 @@ QMap: class extends GlGroup {
     }
 
     drawChildren: func (dye: DyeContext, modelView: Matrix4) {
-        logger warn("drawChildren in %s! pos = %s", class name, pos _)
-        logger warn("bl = %s, tr = %s", drawHitbox bl _, drawHitbox tr _)
-
         v := vec2(0, 0)
         for (c in children) {
             v set!(c pos)
