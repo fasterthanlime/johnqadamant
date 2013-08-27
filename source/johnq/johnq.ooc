@@ -82,10 +82,10 @@ JohnQ: class extends App {
                 switchTo("menu")
             case "lost" =>
                 switchTo("lose")
-                boombox playMusic("johnq_death", 1)
+                boombox playMusic("johnq_death", -1)
             case "won" =>
                 switchTo("win")
-                boombox playMusic("johnq_win", 1)
+                boombox playMusic("johnq_win", -1)
             case "exit" =>
                 quit()
         }

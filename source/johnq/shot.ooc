@@ -109,18 +109,18 @@ Shot: class extends GlGroup {
 
     initAttributes: func {
         damage = match type {
-            case ShotType PELLET =>      3
-            case ShotType DROP   =>      3
-            case ShotType DOLLAR =>      3
-            case ShotType MISSILE =>     3
+            case ShotType PELLET =>      4
+            case ShotType DROP   =>      5
+            case ShotType DOLLAR =>      5
+            case ShotType MISSILE =>     10
 
-            case ShotType ASH =>         8
+            case ShotType ASH =>         5
             case ShotType STARS =>       8
-            case ShotType CHAIN =>       5
+            case ShotType CHAIN =>       20
             case ShotType FIREBALL =>    5
 
-            case ShotType BREAD =>       20
-            case ShotType FEATHER =>     3
+            case ShotType BREAD =>       8
+            case ShotType FEATHER =>     14
 
             case ShotType MIL_MISSILE => 10
             case => 0

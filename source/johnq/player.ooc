@@ -7,7 +7,7 @@ import johnq/stages/[game]
 import dye/[core, sprite, math, primitives]
 
 // sdk
-import math
+import math, math/Random
 
 Player: class extends GlGroup {
 
@@ -87,19 +87,21 @@ Player: class extends GlGroup {
                 }
                 f(-xDelta); f(xDelta)
 
-            case ShotType FIREBALL =>
-                speed := 25.0
+            case ShotType DROP =>
+                yDelta := 25
+                xDelta := 8
 
-                delta := 32
-                incr := 360.0 / delta as Float
-                a := 0.0
-                delta times(||
-                    vel := Vec2 fromAngle(a toRadians()) mul(speed)
-                    propel(pos, vel)
-                    a += incr
-                )
+                f := func (xd, xd2: Float) {
+                    propel(pos add(xd, yDelta), vec2(xd2, 25))
+                }
+                f(-xDelta, -4)
+                f(0, 0)
+                f(xDelta, 4)
 
-            case ShotType MISSILE =>
+            case ShotType DOLLAR =>
+                propel(pos add(0, 22), vec2(0, 25))
+
+            case ShotType MISSILE || ShotType BREAD =>
                 missileAngle += 0.2
                 if (missileAngle > 2 * PI) {
                     missileAngle -= 2 * PI
@@ -111,6 +113,40 @@ Player: class extends GlGroup {
 
                 propel(vec2(pos x + x1 * factor, pos y + yDelta), vec2( x1 * 2.0, 15))
                 propel(vec2(pos x - x1 * factor, pos y + yDelta), vec2(-x1 * 2.0, 15))
+
+            // LINEBREAK
+
+            case ShotType ASH =>
+                yDelta := 25
+                xDelta := Random randInt(2, 36)
+                vel := vec2(0, 25)
+
+                f := func (xd: Float) {
+                    propel(pos add(xd, yDelta), vel)
+                }
+                f(-xDelta); f(xDelta)
+
+
+            case ShotType FIREBALL || ShotType FEATHER || ShotType CHAIN =>
+                speed := 25.0
+
+                delta := 32
+                incr := 360.0 / delta as Float
+                a := 0.0
+                delta times(||
+                    vel := Vec2 fromAngle(a toRadians()) mul(speed)
+                    propel(pos, vel)
+                    a += incr
+                )
+            case ShotType PELLET =>
+                yDelta := 25
+                xDelta := 8
+                vel := vec2(0, 25)
+
+                f := func (xd: Float) {
+                    propel(pos add(xd, yDelta), vel)
+                }
+                f(-xDelta); f(xDelta)
 
             case ShotType STARS =>
                 vel := vec2(0, 10)

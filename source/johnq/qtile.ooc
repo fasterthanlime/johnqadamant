@@ -275,9 +275,9 @@ Mob: class extends GlGroup {
 
     initStats: func {
         health = match type {
-            case MobType MOLAR   => 100
-            case MobType DOVE    => 10
-            case MobType TURRET  => 500
+            case MobType MOLAR   => 150
+            case MobType DOVE    => 25
+            case MobType TURRET  => 350
             case => 20
         }
     }
