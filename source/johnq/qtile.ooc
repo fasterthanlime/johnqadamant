@@ -5,6 +5,8 @@ import dye/[core, math, sprite, primitives]
 use tiled
 import tiled/[Map, Tile, Tileset, helpers]
 
+import deadlogger/[Log, Logger]
+
 // sdk
 import io/File
 import structs/[ArrayList]
@@ -26,16 +28,20 @@ QMap: class extends GlGroup {
     yDelta := -1.0
     worldHeight: Int
 
+    logger := Log getLogger(This name)
+
     init: func (=stage)
+
+    drawHitbox := Hitbox new()
 
     load: func (path: String) {
         reset!()
 
         map = Map new(File new(path))
-        "Loaded map %s" printfln(path)
-        "width / height = %d, %d" printfln(map width, map height)
-        "tile width / height = %d, %d" printfln(map tileWidth, map tileHeight)
-        "layer count = %d" printfln(map layers size)
+        logger info("Loaded map %s", path)
+        logger info("width / height = %d, %d", map width, map height)
+        logger info("tile width / height = %d, %d", map tileWidth, map tileHeight)
+        logger info("layer count = %d", map layers size)
 
         worldHeight = map height * map tileHeight
 
@@ -49,6 +55,7 @@ QMap: class extends GlGroup {
             qtile := QTile new(tileX, tileY)
             qtile pos set!(convertMapPos(x, y))
             addTile(qtile)
+            logger info("qtile %d, %d | qtile pos = %s", tileX, tileY, qtile pos _)
         )
 
         mobs := map layers get("mobs")
@@ -63,6 +70,11 @@ QMap: class extends GlGroup {
                 addMob(mob)
             )
         }
+
+        drawHitbox bl set!(0.0 - (map tileWidth as Float),
+                           0.0 - (map tileHeight as Float))
+        drawHitbox tr set!((stage size x + map tileWidth) as Float,
+                           (stage size y + map tileHeight) as Float)
     }
 
     convertMapPos: func (x, y: Int) -> Vec2 {
@@ -105,15 +117,19 @@ QMap: class extends GlGroup {
     }
 
     drawChildren: func (dye: DyeContext, modelView: Matrix4) {
+        logger warn("drawChildren in %s! pos = %s", class name, pos _)
+        logger warn("bl = %s, tr = %s", drawHitbox bl _, drawHitbox tr _)
+
+        v := vec2(0, 0)
         for (c in children) {
-            actualPos := c pos add(pos)
-            if (actualPos x < -map tileWidth ||
-                actualPos x > dye width + map tileWidth ||
-                actualPos y < -map tileHeight ||
-                actualPos y > dye height + map tileHeight) {
+            v set!(c pos)
+            v add!(pos)
+
+            if (!drawHitbox contains?(v)) {
                 continue // skip that one.
             }
 
+            //logger warn("Drawing a %s", c class name)
             c render(dye, modelView)
         }
     }
