@@ -51,6 +51,27 @@ Player: class extends GlGroup {
 
     prepare: func {
         (body x, body y) = (stage john x, stage john y)
+
+        shotType = match (body y) {
+            case 0 => match (body x) {
+                case 0 => ShotType PELLET
+                case 1 => ShotType DROP
+                case 2 => ShotType DOLLAR
+                case 3 => ShotType MISSILE
+            }
+            case 1 => match (body x) {
+                case 0 => ShotType ASH      
+                case 1 => ShotType STARS    
+                case 2 => ShotType CHAIN    
+                case 3 => ShotType FIREBALL 
+            }
+            case 2 => match (body x) {
+                case 0 => ShotType BREAD
+                case 1 => ShotType FEATHER
+            }
+            case =>
+                ShotType PELLET
+        }
     }
 
     shoot: func {
