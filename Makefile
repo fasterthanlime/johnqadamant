@@ -8,3 +8,9 @@ win32-debug:
 
 win32-release:
 	rock -v ${RELEASE_FLAGS} ${WIN_FLAGS}
+
+clean:
+	rm -f johnq johnq.exe
+	rock -x
+
+.PHONY: clean
