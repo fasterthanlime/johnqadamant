@@ -10,9 +10,17 @@ import johnq/stages/[game]
 ShotType: enum {
     // friendly
     PELLET
-    FIREBALL
+    DROP
+    DOLLAR
     MISSILE
+
+    ASH
     STARS
+    CHAIN
+    FIREBALL
+
+    BREAD
+    FEATHER
 
     // unfriendly
     MIL_MISSILE
@@ -49,22 +57,48 @@ Shot: class extends GlGroup {
             case ShotType PELLET =>
                 (x, y) = (0, 0)
 
-            case ShotType FIREBALL =>
+            case ShotType DROP =>
                 (x, y) = (1, 0)
 
+            case ShotType DOLLAR =>
+                (x, y) = (2, 0)
+
             case ShotType MISSILE =>
+                (x, y) = (3, 1)
+
+
+
+            case ShotType ASH =>
                 (x, y) = (0, 1)
 
             case ShotType STARS =>
                 (x, y) = (1, 1)
+
+            case ShotType CHAIN =>
+                (x, y) = (2, 1)
+
+            case ShotType FIREBALL =>
+                (x, y) = (3, 1)
+
+
+            case ShotType BREAD =>
+                (x, y) = (0, 2)
+
+            case ShotType FEATHER =>
+                (x, y) = (1, 2)
+
 
             case ShotType MIL_MISSILE =>
                 (x, y) = (0, 1)
                 friendly = false
         }
 
-        spritePath := "assets/png/%sshots.png" format(friendly ? "" : "mob")
-        sprite = GlGridSprite new(spritePath, 2, 2)
+        if (friendly) {
+            sprite = GlGridSprite new("assets/png/shots.png", 4, 4)
+        } else {
+            sprite = GlGridSprite new("assets/png/mobshots.png", 2, 2)
+        }
+
         (sprite x, sprite y) = (x, y)
         add(sprite)
         pos set!(initialPos)
@@ -76,10 +110,20 @@ Shot: class extends GlGroup {
     initAttributes: func {
         damage = match type {
             case ShotType PELLET =>      3
-            case ShotType FIREBALL =>    5
-            case ShotType MISSILE =>     20
+            case ShotType DROP   =>      3
+            case ShotType DOLLAR =>      3
+            case ShotType MISSILE =>     3
+
+            case ShotType ASH =>         8
             case ShotType STARS =>       8
+            case ShotType CHAIN =>       5
+            case ShotType FIREBALL =>    5
+
+            case ShotType BREAD =>       20
+            case ShotType FEATHER =>     3
+
             case ShotType MIL_MISSILE => 10
+            case => 0
         }
 
         oneShot? = match type {

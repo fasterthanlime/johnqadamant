@@ -20,10 +20,18 @@ GameStage: class extends Stage {
     shootCounter := 0
     shootThreshold : Int { get {
         match (player shotType) {
-            case ShotType PELLET => 2
-            case ShotType FIREBALL => 20
-            case ShotType MISSILE => 5
-            case ShotType STARS => 5
+            case ShotType PELLET =>      2
+            case ShotType DROP   =>      5
+            case ShotType DOLLAR =>      2
+            case ShotType MISSILE =>     5
+
+            case ShotType ASH =>         2
+            case ShotType STARS =>       5
+            case ShotType CHAIN =>       5
+            case ShotType FIREBALL =>    12
+
+            case ShotType BREAD =>       5
+            case ShotType FEATHER =>     12
         }
     } }
 
@@ -57,15 +65,6 @@ GameStage: class extends Stage {
             match (kr scancode) {
                 case KeyCode ESC =>
                     john hose publish(ZBag make("select character"))
-                
-                case KeyCode F1 =>
-                    player shotType = ShotType PELLET
-                case KeyCode F2 =>
-                    player shotType = ShotType FIREBALL
-                case KeyCode F3 =>
-                    player shotType = ShotType MISSILE
-                case KeyCode F4 =>
-                    player shotType = ShotType STARS
             }
         )
     }
