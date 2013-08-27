@@ -2,6 +2,7 @@
 rock_tmp
 
 johnq
+*.log
 
 # win32 stuff
 *.exe
