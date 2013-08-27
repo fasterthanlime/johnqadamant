@@ -6,4 +6,5 @@ johnq
 
 # win32 stuff
 *.exe
+*.res
 *.dll

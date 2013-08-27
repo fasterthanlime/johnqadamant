@@ -5,3 +5,6 @@ SourcePath: source
 Requires: dye, gnaar, bleep
 Main: johnq/johnq
 
+version (windows) {
+    Libs: ./johnq.res
+}
