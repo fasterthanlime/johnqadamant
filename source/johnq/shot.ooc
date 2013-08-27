@@ -64,7 +64,7 @@ Shot: class extends GlGroup {
                 (x, y) = (2, 0)
 
             case ShotType MISSILE =>
-                (x, y) = (3, 1)
+                (x, y) = (3, 0)
 
 
 

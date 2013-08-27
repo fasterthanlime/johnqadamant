@@ -4,7 +4,7 @@ use dye
 import dye/[core, app, input]
 
 use gnaar
-import gnaar/[zbag, hose]
+import gnaar/[zbag, hose, sound]
 
 // sdk
 import structs/[ArrayList, HashMap]
@@ -25,6 +25,9 @@ JohnQ: class extends App {
     // MWAHAHAHAHA GLOBALS
     x, y: Int
     challenge: String
+
+    // sound why not?
+    boombox: Boombox
 
     init: func {
         // Yeaaaah, 720p baby.
@@ -52,6 +55,10 @@ JohnQ: class extends App {
 
         // initial state
         switchTo("story")
+
+        // musiccc
+        boombox = Boombox new()
+        boombox playMusic("johnq_menu", -1)
     }
 
     onEvent: func (bag: ZBag) {
@@ -60,19 +67,25 @@ JohnQ: class extends App {
 
         match message {
             case "read story" =>
+                boombox playMusic("johnq_menu", -1)
                 switchTo("story")
             case "select character" =>
+                boombox playMusic("johnq_menu", -1)
                 switchTo("selector")
             case "new game" =>
                 (x, y) = (bag pullInt(), bag pullInt())
                 challenge = bag pull()
                 switchTo("game")
+                boombox playMusic("johnq1", -1)
             case "return to menu" =>
+                boombox playMusic("johnq_menu", -1)
                 switchTo("menu")
             case "lost" =>
                 switchTo("lose")
+                boombox playMusic("johnq_death", 1)
             case "won" =>
                 switchTo("win")
+                boombox playMusic("johnq_win", 1)
             case "exit" =>
                 quit()
         }

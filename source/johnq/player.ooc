@@ -72,6 +72,7 @@ Player: class extends GlGroup {
             case =>
                 ShotType PELLET
         }
+        "shot type = %d" printfln(shotType)
     }
 
     shoot: func {
