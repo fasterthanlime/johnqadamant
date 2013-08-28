@@ -15,6 +15,9 @@ linux64:
 linux32:
 	PATH=${PATH}:~/Dev/prefix32/bin rock -v +-Wl,-rpath=bin/libs32/ -I${HOME}/Dev/prefix32/include -L${HOME}/Dev/prefix32/lib -o=johnq32 ${RELEASE_FLAGS}
 
+osx:
+	rock -v +-mmacosx-version-min=10.7 ${RELEASE_FLAGS}
+
 johnq.res:
 	windres -i johnq.rc -o johnq.res -O coff
 
