@@ -97,6 +97,7 @@ GameStage: class extends Stage {
                                     mob takeDamage(shot)
                                     if (shot oneShot?) {
                                         iter remove()
+                                        break // for (mob in map mobs)
                                     }
                                 }
                             }

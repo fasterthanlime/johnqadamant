@@ -1,0 +1,25 @@
+id ICON "art/johnq.ico"
+1 VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4"
+    BEGIN
+      VALUE "CompanyName", "Amos Wenger"
+      VALUE "FileDescription", "John Q. Adamant"
+      VALUE "FileVersion", "1.0"
+      VALUE "InternalName", "johnqadamant"
+      VALUE "LegalCopyright", "Amos Wenger"
+      VALUE "OriginalFilename", "johnq.exe"
+      VALUE "ProductName", "John Q. Adamant"
+      VALUE "ProductVersion", "0.1.0"
+    END
+  END
+
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1252
+  END
+END

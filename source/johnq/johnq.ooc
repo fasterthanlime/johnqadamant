@@ -10,6 +10,7 @@ import gnaar/[zbag, hose, sound]
 import structs/[ArrayList, HashMap]
 
 // ours
+use johnqadamant
 import johnq/[stage]
 import johnq/stages/[menu, winlose, game, story, selector]
 
@@ -33,6 +34,7 @@ JohnQ: class extends App {
         // Yeaaaah, 720p baby.
         super("John Quincy Adamant", 1280, 720)
         escQuits? = false
+        dye setIcon("assets/bmp/icon.bmp")
     }
 
     setup: func {
